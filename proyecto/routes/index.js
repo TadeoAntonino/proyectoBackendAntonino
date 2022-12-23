@@ -1,11 +1,12 @@
 const Router = require('express');
 
-const productRouter = require ("./products.router.js")
+const productRouter = require ("../routers/products.router.js")
+const cartRouter = require ("../routers/carts.router.js")
 
 const router = Router();
 
 
 router.use("/products", productRouter);
-//agregar /cart 
+router.use("/carts", cartRouter); 
 
 module.exports = router;
