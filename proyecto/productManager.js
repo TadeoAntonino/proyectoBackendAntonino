@@ -151,7 +151,7 @@ global();
 */
 
 
-export default ProductManager;
+export default  new ProductManager();
 
 
 

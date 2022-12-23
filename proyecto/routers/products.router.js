@@ -1,31 +1,32 @@
 import { Router } from "express";
-import fs from 'fs';
 import ProductManager from "../productManager";
 
-const products = fs.readFileSync("../productos.json", "utf-8");
+
 
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.json(products);
+  res.json(ProductManager.getProducts());
 });
 
 router.get("/:pid", (req, res) => {
-    prodId = getProductById();
+    prodId = ProductManager.getProductById();
     res.json(prodId);
 });
 
 router.post("/", (req, res) => {
-  products.push(req.body);
-  res.status(201).json(products);
+  const { body } = req;
+  ProductManager.addProduct(body);
+  res.status(201).send("Producto agregado");
 });
 
 router.put("/", (req, res) => {
 
+  ProductManager.updateProduct(body);
 });
 
 router.delete("/", (req, res) => {
-
+  ProductManager.deleteProduct();
 });
 
 export default router;
