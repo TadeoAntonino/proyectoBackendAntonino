@@ -6,7 +6,7 @@ const viewsRouter = Router();
 viewsRouter.get("/", (req, res) => {
     try {
         const productsList = ProductManager.getProducts();
-        res.status(200).render("home", {products: productsList});
+        res.status(200).render("index", {products: productsList});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -15,7 +15,7 @@ viewsRouter.get("/", (req, res) => {
 viewsRouter.get("/realtimeproducts", (req, res) => {
     try {
         const productsList = ProductManager.getProducts();
-        res.status(200).render('realTimeProducts', {products: productsList})
+        res.status(200).render('realTime', {products: productsList})
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
