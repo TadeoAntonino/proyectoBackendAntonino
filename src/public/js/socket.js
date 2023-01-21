@@ -1,17 +1,17 @@
 const socket = io();
 
-socket.on('listChange', (data) => {
-    console.log(data)
-    updateList(data);
-})
+socket.on("listChange", (data) => {
+  console.log(data);
+  updateList(data);
+});
 
-const listProducts = document.getElementById('listProducts');
+const listProducts = document.getElementById("listProducts");
 
 const updateList = (list) => {
-    listProducts.innerHTML = '';
-    list.forEach((item) => {
-        const product = document.createElement('div');
-        product.innerHTML = `
+  listProducts.innerHTML = "";
+  list.forEach((item) => {
+    const product = document.createElement("div");
+    product.innerHTML = `
                         <h2>${item.title}</h2>
                         <p>${item.description}</p>
                         <p>Price: ${item.price}</p>
@@ -19,6 +19,6 @@ const updateList = (list) => {
                         <p>code :${item.code}</p>
                         <p>Stock:${item.stock}</p>
                     `;
-        listProducts.appendChild(product);
-    })
-}
+    listProducts.appendChild(product);
+  });
+};

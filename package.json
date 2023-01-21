@@ -2,11 +2,11 @@
   "name": "proyectobackend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "commonjs",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./proyecto/routers/app.js localhost 8080"
+    "server": "nodemon ./src/routers/app.js localhost 8080"
   },
   "keywords": [],
   "author": "",

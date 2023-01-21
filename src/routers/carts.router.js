@@ -1,21 +1,25 @@
 import { Router } from "express";
-//import fs from 'fs';
+import CartManager from "../cartManager.js";
 
-const carts = [];
+const carritoManager = new CartManager();
 
 const router = Router();
 
-router.get("/:cid", (req, res) => {
-  res.json(carts);
+router.post("/", (req, res) => {
+  const nuevoCarrito = carritoManager.createCart();
+  res.json(nuevoCarrito);
 });
 
-router.post("/", (req, res) => {
-  carts.push(req.body);
-  res.status(201).json(carts);
+router.get("/:cid", (req, res) => {
+  const { cid } = req.params;
+  let carrito = carritoManager.getCartProducts(cid);
+  res.json(carrito);
 });
 
 router.post("/:cid/product/:pid", (req, res) => {
-
+  const { cid, pid } = req.params;
+  let addProduct = carritoManager.addProductToCart(cid, pid);
+  res.json(addProduct);
 });
 
 export default router;
