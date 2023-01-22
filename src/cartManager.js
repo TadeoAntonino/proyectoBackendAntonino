@@ -55,7 +55,9 @@ export default class CartManager {
     }
     this.carts[carritoIndex] = carrito;
     this.#updateCartFile();
-    return {mensaje: `Producto con id ${pid} agregado correctamente en el carrito ${cid} `};
+    return {
+      mensaje: `Producto con id ${pid} agregado correctamente en el carrito ${cid} `,
+    };
   }
 
   #getCartFile() {
