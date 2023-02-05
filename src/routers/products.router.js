@@ -1,11 +1,22 @@
 import { Router } from "express";
-import ProductManager from "../productManager.js";
+//import ProductManager from "../dao/productManager.js";
+import * as ProductController from "../controllers/products.controllers.js";
 
-const productoManager = new ProductManager();
+//const productoManager = new ProductManager();
 
 const router = Router();
 
-router.get("/", (req, res) => {
+// Con controllers
+
+router.get("/", ProductController.getProducts);
+router.get("/:pid", ProductController.getProductById);
+router.post("/", ProductController.addProduct);
+router.put("/:pid", ProductController.updateProduct);
+router.delete("/", ProductController.deleteProduct);
+
+// Con File System
+
+/*router.get("/", (req, res) => {
   res.json(productoManager.getProducts());
 });
 
@@ -30,6 +41,6 @@ router.put("/:pid", (req, res) => {
 
 router.delete("/", (req, res) => {
   productoManager.deleteProduct();
-});
+}); */
 
 export default router;

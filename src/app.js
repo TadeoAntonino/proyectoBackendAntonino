@@ -29,11 +29,24 @@ const server = app.listen(PORT, () =>
 server.on("error", (err) => console.log(err));
 
 const io = new Server(server);
+// io es como socketServer del profe
+
+const messages = [];
 
 io.on("connection", (socket) => {
-  console.log(`Conectado desde el id: ${socket.id}`);
+  console.log(`Conectado desde el id: ${socket.id} 🚀🚀🚀`);
+  socket.emit("Welcome", { welcome: "Bienvenido al chat" });
 
   socket.on("disconnect", (socket) => {
-    console.log(`Desconectado`);
+    console.log(`Desconectado 🚩🚩🚩`);
+  });
+
+  socket.on("message", (data) => {
+    messages.push(data);
+    io.emit("message", data);
+  });
+
+  socket.on("newUser", (data) => {
+    socket.broadcast.emit("newUser", data);
   });
 });
