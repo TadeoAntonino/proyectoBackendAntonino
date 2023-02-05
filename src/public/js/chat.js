@@ -5,14 +5,24 @@ let message = document.getElementById("message");
 let messages = document.getElementById("messages");
 
 let newMessages = [];
+let user = null;
+
+function printMessages(newMessages) {
+  let _newMessages = "";
+  if (newMessages?.length) {
+    for (const message of newMessages) {
+      _newMessages += `${message.user}: ${message.message} \n`;
+    }
+    messages.innerText = _newMessages;
+  } else {
+    console.log(newMessages);
+  }
+}
 
 socket.on("Welcome", (arg) => {
-  console.log(arg);
-  newMessages = arg.messages;
+  newMessages = arg.messages??newMessages;
   printMessages(newMessages);
 });
-
-let user = null;
 
 if (!user) {
   Swal.fire({
@@ -38,17 +48,9 @@ submit.addEventListener("click", (e) => {
 });
 
 socket.on("message", (data) => {
-  newMessages.push(data);
+  newMessages?.push(data);
   printMessages(newMessages);
 });
-
-function printMessages(newMessages) {
-  let _newMessages = "";
-  for (const message of newMessages) {
-    _newMessages += `${message.user}: ${message.message} \n`;
-  }
-  messages.innerText = _newMessages;
-}
 
 socket.on("newUser", (nombre) => {
   Swal.fire({
