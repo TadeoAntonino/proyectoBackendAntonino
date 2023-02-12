@@ -20,7 +20,7 @@ function printMessages(newMessages) {
 }
 
 socket.on("Welcome", (arg) => {
-  newMessages = arg.messages??newMessages;
+  newMessages = arg.messages ?? newMessages;
   printMessages(newMessages);
 });
 

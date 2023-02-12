@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon ./src/routers/app.js localhost 8080",
+    "server": "nodemon ./src/app.js localhost 8080",
     "start": "node ./src/app.js"
   },
   "keywords": [],

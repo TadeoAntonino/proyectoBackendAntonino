@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import MongooseDelete from "mongoose-delete";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const schema = new mongoose.Schema(
   {
@@ -40,4 +42,7 @@ const schema = new mongoose.Schema(
   }
 );
 
-export const ProductsModel = mongoose.model("Products", schema);
+schema.plugin(MongooseDelete, { deletedAt: true });
+schema.plugin(mongoosePaginate);
+
+export const ProductsModel = mongoose.model("products", schema);

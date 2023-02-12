@@ -29,7 +29,6 @@ const server = app.listen(PORT, () =>
 server.on("error", (err) => console.log(err));
 
 const io = new Server(server);
-// io es como socketServer del profe
 
 const messages = [];
 

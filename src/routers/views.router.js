@@ -23,7 +23,7 @@ viewsRouter.get("/realtimeproducts", (req, res) => {
 
 viewsRouter.get("/chat", (req, res) => {
   try {
-    res.status(200).render("chat");
+    res.render("chat");
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

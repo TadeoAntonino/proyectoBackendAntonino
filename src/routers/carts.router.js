@@ -1,19 +1,26 @@
 import { Router } from "express";
-//import CartManager from "../dao/cartManager.js";
 import * as CartsController from "../controllers/carts.controllers.js";
-
-//const carritoManager = new CartManager();
+//import CartManager from "../dao/cartManager.js";
 
 const router = Router();
 
-// con controllers
+router.get("/", CartsController.getCart);
 
-router.post("/", CartsController.createCart);
-router.get("/:cid", CartsController.getCartProducts);
-router.post("/:cid/product/:pid", CartsController.addProductToCart);
+router.get("/:cid", CartsController.getCartById);
 
+router.post("/", CartsController.addCart);
+
+router.put("/:cid", CartsController.updateCart);
+
+router.put("/:cid/products/:pid", CartsController.updateProductQ);
+
+router.delete("/:cid", CartsController.deleteAllProducts);
+
+router.delete("/:cid/products/:pid", CartsController.deleteOneProduct);
 
 // Con File System
+
+//const carritoManager = new CartManager();
 
 /*router.post("/", (req, res) => {
   const nuevoCarrito = carritoManager.createCart();
