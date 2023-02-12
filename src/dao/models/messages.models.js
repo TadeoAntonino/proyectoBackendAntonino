@@ -6,7 +6,7 @@ const schema = new mongoose.Schema(
       required: true,
       type: String,
     },
-    message: {
+    messages: {
       required: true,
       type: String,
     },
