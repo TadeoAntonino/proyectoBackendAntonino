@@ -6,6 +6,7 @@ import viewsRouter from "./routers/views.router.js";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 import "./config/db.js";
+//import * as ProductService from "./services/products.service.js"; para cargar productos a db
 
 dotenv.config();
 
@@ -49,3 +50,128 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("newUser", data);
   });
 });
+
+/*let producto = [
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2567852873,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2560,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2561,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2562,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2563,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2564,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2565,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 25666,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 256456,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 256678,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 256687,
+    status: true,
+    category: "categoria",
+  },
+  {
+    title: "title",
+    description: "description",
+    price: 8,
+    thumbnail: "thumbnail",
+    stock: 20,
+    code: 2562387,
+    status: true,
+    category: "categoria",
+  },
+];
+
+producto.forEach(product => {ProductService.addProduct(product)});*/

@@ -21,7 +21,7 @@ const schema = new mongoose.Schema(
   }
 );
 
-schema.pre(/^find/, function (next) {
+schema.pre("find", function (next) {
   this.populate("products.product");
   next();
 });

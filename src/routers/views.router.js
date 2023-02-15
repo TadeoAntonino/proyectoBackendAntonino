@@ -1,12 +1,15 @@
 import { Router } from "express";
-import ProductManager from "../dao/productManager.js";
+import * as ProductService from "../services/products.service.js";
+//import ProductService from "../dao/productManager.js";
 
 const viewsRouter = Router();
 
-viewsRouter.get("/", (req, res) => {
+viewsRouter.get("/", async (req, res) => {
   try {
-    const productsList = ProductManager.getProducts();
-    res.status(200).render("index", { products: productsList });
+    const { page = 1, limit = 5, sort = "asc", category } = req.query;
+    const productsList = await ProductService.getProducts(category, Number(limit), Number(page), sort);
+    console.log(productsList);
+    res.status(200).render("index", productsList);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -14,7 +17,7 @@ viewsRouter.get("/", (req, res) => {
 
 viewsRouter.get("/realtimeproducts", (req, res) => {
   try {
-    const productsList = ProductManager.getProducts();
+    const productsList = ProductService.getProducts();
     res.status(200).render("realTime", { products: productsList });
   } catch (error) {
     res.status(500).json({ error: error.message });

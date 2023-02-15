@@ -1,4 +1,4 @@
-import * as CartServices from "../services/carts.services.js";
+import * as CartServices from "../services/carts.service.js";
 import { STATUS } from "../constants/constants.js";
 
 export async function getCart(req, res) {
