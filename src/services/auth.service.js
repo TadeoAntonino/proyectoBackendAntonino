@@ -1,4 +1,5 @@
 import * as UserService from "../services/users.service.js";
+import bcrypt from "bcrypt";
 
 export async function login(email, password) {
   try {
@@ -6,7 +7,8 @@ export async function login(email, password) {
     if (!user) {
       throw new Error("El usuario buscado no existe");
     } else {
-      if (password === user.password) {
+      const comparaPasswords = bcrypt.compareSync(password, user.password);
+      if (comparaPasswords) {
         return true;
       } else {
         return false;

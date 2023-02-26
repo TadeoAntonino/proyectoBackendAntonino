@@ -10,6 +10,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import UserRouter from "./routers/users.router.js";
 import AuthRouter from "./routers/auth.router.js";
+import passport from "./utils/passport.util.js";
 
 dotenv.config();
 
@@ -35,6 +36,9 @@ app.use(
     cookie: { maxAge: 100000 },
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);

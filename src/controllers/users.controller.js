@@ -22,3 +22,29 @@ export async function getUser(req, res) {
     throw new Error(error.message);
   }
 }
+
+export async function updateUser(req, res) {
+  try {
+    const { email } = req.params;
+    const { body } = req;
+    const user = await UserService.updateUser(email, body);
+    res.json(user);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function updatePassword(req, res) {
+  try {
+    const { email } = req.params;
+    const { body } = req;
+    const user = await UserService.updateUser(
+      email,
+      { password: body.password },
+      true
+    );
+    res.json(user);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
