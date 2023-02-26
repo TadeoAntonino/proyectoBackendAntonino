@@ -1,11 +1,11 @@
 import { ProductsModel } from "../dao/models/products.models.js";
 
-// El método GET deberá devolver un objeto con el siguiente formato:
-
-export async function getProducts(category, limit, page, sort) {
+export async function getProducts(page, limit, sort, category) {
   try {
     const products = await ProductsModel.paginate(
-      category ? { category: category } : {},{ page, limit, sort: { price: sort }, lean: true});
+      category ? { category: category } : {},
+      { page, limit, sort: { price: sort }, lean: true }
+    );
     console.log(products);
     return products;
   } catch (error) {

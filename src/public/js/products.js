@@ -5,9 +5,16 @@ const socket = io();
 socket.on("listChange", (data) => {
   console.log(data);
   updateList(data);
+  changeSort(data);
 });
 
 const listProducts = document.getElementById("listProducts");
+const button = document.getElementById("botonSort");
+
+const changeSort = (data) => {
+  console.log(data);
+  button.addEventListener("click", () => {});
+};
 
 const updateList = (list) => {
   listProducts.innerHTML = "";

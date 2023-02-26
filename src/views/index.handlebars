@@ -11,3 +11,19 @@
         </div>
     {{/each}}
 </div>
+<button id="botonSort" value="asc"> ASC </button>
+<select name="select" id="selectCategory">
+  <option value="value1" selected>categoría 1</option>
+  <option value="value2">categoría 2</option>
+  <option value="value3">categoria</option>
+</select>
+
+<div>
+  {{#if prevPage}}
+      <a href='/products?page={{prevPage}}'><button type='button'>Anterior</button></a>
+  {{/if}}
+  <span>{{page}}</span>
+  {{#if nextPage}}
+      <a href='/products?page={{nextPage}}'><button type='button'>Siguiente</button></a>
+  {{/if}}
+</div>

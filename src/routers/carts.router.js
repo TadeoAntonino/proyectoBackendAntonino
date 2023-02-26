@@ -1,22 +1,22 @@
 import { Router } from "express";
-import * as CartsController from "../controllers/carts.controllers.js";
+import * as CartsController from "../controllers/carts.controller.js";
 //import CartManager from "../dao/cartManager.js";
 
 const router = Router();
 
-router.get("/", CartsController.getCart);
-
-router.get("/:cid", CartsController.getCartById);
-
 router.post("/", CartsController.addCart);
 
-router.put("/:cid", CartsController.updateCart);
+router.get("/:cid", CartsController.getCart);
 
-router.put("/:cid/products/:pid", CartsController.updateProductQ);
+router.put("/:cid/", CartsController.updateCart);
+
+router.put("/:cid/product/:pid", CartsController.updateProductQ);
+
+router.post("/:cid/product/:pid/:quantity", CartsController.addProductToCart);
 
 router.delete("/:cid", CartsController.deleteAllProducts);
 
-router.delete("/:cid/products/:pid", CartsController.deleteOneProduct);
+router.delete("/:cid/product/:pid", CartsController.deleteOneProduct);
 
 // Con File System
 

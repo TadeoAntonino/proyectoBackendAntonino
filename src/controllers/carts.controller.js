@@ -114,3 +114,34 @@ export async function deleteOneProduct(req, res) {
     });
   }
 }
+
+export async function addProductToCart(req, res) {
+  try {
+    const { cid, pid, quantity } = req.params;
+    if (quantity <= 0) {
+      res.status(400).json({
+        success: false,
+        message: "La cantidad debe ser un número positivo",
+      });
+    }
+    const cart = await CartServices.addProductToCart(
+      cid,
+      pid,
+      Number(quantity)
+    );
+    if (cart) {
+      res.status(200).json({
+        success: true,
+        message: `Product ${pid} added to cart ${cart._id}`,
+        data: cart,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: `Product ${pid} not found.`,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ Error: error.message });
+  }
+}

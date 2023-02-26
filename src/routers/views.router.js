@@ -4,10 +4,16 @@ import * as ProductService from "../services/products.service.js";
 
 const viewsRouter = Router();
 
-viewsRouter.get("/", async (req, res) => {
+viewsRouter.get("/products", async (req, res) => {
   try {
     const { page = 1, limit = 5, sort = "asc", category } = req.query;
-    const productsList = await ProductService.getProducts(category, Number(limit), Number(page), sort);
+    console.log(sort, "el sort");
+    const productsList = await ProductService.getProducts(
+      Number(page),
+      Number(limit),
+      sort,
+      category
+    );
     console.log(productsList);
     res.status(200).render("index", productsList);
   } catch (error) {

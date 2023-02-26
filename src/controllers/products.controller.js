@@ -2,10 +2,16 @@ import * as ProductService from "../services/products.service.js";
 
 export async function getProducts(req, res) {
   try {
-
     const { page = 1, limit = 5, sort = "asc", category } = req.query;
-   
-    const response = await ProductService.getProducts(Number(page), Number(limit), sort, category);
+
+    console.log(req.query);
+
+    const response = await ProductService.getProducts(
+      Number(page),
+      Number(limit),
+      sort,
+      category
+    );
     res.json({
       products: response,
       status: "SUCCESS",

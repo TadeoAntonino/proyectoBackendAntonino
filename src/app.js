@@ -6,14 +6,39 @@ import viewsRouter from "./routers/views.router.js";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 import "./config/db.js";
-//import * as ProductService from "./services/products.service.js"; para cargar productos a db
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import UserRouter from "./routers/users.router.js";
+import AuthRouter from "./routers/auth.router.js";
 
 dotenv.config();
+
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("src/public"));
+// agregar el app.use(cookie()) y su correspondiente importación de cookie-parse que marca un error y no sé de qué 🚩🚩🚩
+app.use(
+  session({
+    store: new MongoStore({
+      mongoUrl: process.env.MONGO_URI,
+      options: {
+        userNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    }),
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 100000 },
+  })
+);
+
+app.use("/api/users", UserRouter);
+app.use("/api/auth", AuthRouter);
+
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "src/views");
@@ -22,8 +47,6 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
-const PORT = process.env.PORT || 8080;
-
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${PORT}`)
 );
@@ -31,15 +54,15 @@ server.on("error", (err) => console.log(err));
 
 const io = new Server(server);
 
-const messages = [];
-
 io.on("connection", (socket) => {
   console.log(`Conectado desde el id: ${socket.id} 🚀🚀🚀`);
-  socket.emit("Welcome", { welcome: "Bienvenido al chat" });
+  socket.emit("Welcome", { welcome: "Bienvenido al chat 😄" });
 
   socket.on("disconnect", (socket) => {
     console.log(`Desconectado 🚩🚩🚩`);
   });
+
+  const messages = [];
 
   socket.on("message", (data) => {
     messages.push(data);
@@ -50,128 +73,3 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("newUser", data);
   });
 });
-
-/*let producto = [
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2567852873,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2560,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2561,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2562,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2563,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2564,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2565,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 25666,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 256456,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 256678,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 256687,
-    status: true,
-    category: "categoria",
-  },
-  {
-    title: "title",
-    description: "description",
-    price: 8,
-    thumbnail: "thumbnail",
-    stock: 20,
-    code: 2562387,
-    status: true,
-    category: "categoria",
-  },
-];
-
-producto.forEach(product => {ProductService.addProduct(product)});*/
