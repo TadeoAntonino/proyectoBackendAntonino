@@ -65,6 +65,8 @@ export async function updateCart(req, res) {
   }
 }
 
+//Actualizar la cantidad (Quantity) de producto
+
 export async function updateProductQ(req, res) {
   try {
     const { cid, pid } = req.params;
@@ -132,13 +134,13 @@ export async function addProductToCart(req, res) {
     if (cart) {
       res.status(200).json({
         success: true,
-        message: `Product ${pid} added to cart ${cart._id}`,
+        message: `Producto: ${pid} agregado al carrito: ${cart._id}`,
         data: cart,
       });
     } else {
       res.status(404).json({
         success: false,
-        message: `Product ${pid} not found.`,
+        message: `Producto: ${pid} no encontrado`,
       });
     }
   } catch (error) {
