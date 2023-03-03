@@ -4,7 +4,7 @@ import { STATUS } from "../constants/constants.js";
 export async function getCart(req, res) {
   try {
     const response = await CartServices.getCart();
-    res.json({
+    res.status(200).json({
       carts: response,
       status: STATUS.SUCCESS,
     });
@@ -20,7 +20,7 @@ export async function getCartById(req, res) {
   try {
     const { cid } = req.params;
     const response = await CartServices.getCartById(cid);
-    res.json({
+    res.status(200).json({
       products: response,
       status: STATUS.SUCCESS,
     });
@@ -37,7 +37,7 @@ export async function addCart(req, res) {
     const { body } = req;
     const response = await CartServices.addCart(body);
     res.status(201).json({
-      products: response,
+      newCart: response,
       status: STATUS.SUCCESS,
     });
   } catch (error) {
@@ -51,8 +51,8 @@ export async function addCart(req, res) {
 export async function updateCart(req, res) {
   try {
     const { cid } = req.params;
-    const { body } = req;
-    const response = await CartServices.updateCart(cid, body);
+    const { products } = req.body;
+    const response = await CartServices.updateCart(cid, products);
     res.status(201).json({
       cart: response,
       status: STATUS.SUCCESS,
@@ -70,8 +70,8 @@ export async function updateCart(req, res) {
 export async function updateProductQ(req, res) {
   try {
     const { cid, pid } = req.params;
-    const { body } = req;
-    const response = await CartServices.updateProductQ(cid, pid, body);
+    const { quantity } = req.body;
+    const response = await CartServices.updateProductQ(cid, pid, quantity);
     res.status(201).json({
       cart: response,
       status: STATUS.SUCCESS,
@@ -120,12 +120,6 @@ export async function deleteOneProduct(req, res) {
 export async function addProductToCart(req, res) {
   try {
     const { cid, pid, quantity } = req.params;
-    if (quantity <= 0) {
-      res.status(400).json({
-        success: false,
-        message: "La cantidad debe ser un número positivo",
-      });
-    }
     const cart = await CartServices.addProductToCart(
       cid,
       pid,
@@ -133,14 +127,14 @@ export async function addProductToCart(req, res) {
     );
     if (cart) {
       res.status(200).json({
-        success: true,
+        status: STATUS.SUCCESS,
         message: `Producto: ${pid} agregado al carrito: ${cart._id}`,
-        data: cart,
+        cart: cart,
       });
     } else {
       res.status(404).json({
-        success: false,
-        message: `Producto: ${pid} no encontrado`,
+        status: STATUS.FAIL,
+        message: `Error: el carrito no existe o la cantidad no es válida`,
       });
     }
   } catch (error) {

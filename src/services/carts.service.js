@@ -45,21 +45,17 @@ export async function updateCart(cid, data) {
   }
 }
 
-export async function updateProductQ(cid, pid, body) {
+export async function updateProductQ(cid, pid, quantity) {
   try {
-    let productId = pid;
-    let newQuantity = body.quantity;
-    console.log(productId);
-    console.log(newQuantity);
+    const { quantity } = req.body;
     const updateCart = await CartsModel.findById(cid);
-
-    console.log(updateCart);
     updateCart.products.forEach((object) => {
       if (object.product._id == pid) {
         let updateObjet = object;
-        updateObjet.quantity = newQuantity;
+        updateObjet.quantity = quantity;
         object = updateObjet;
         updateCart.save();
+        return updateCart;
       }
     });
 
@@ -74,6 +70,7 @@ export async function deleteAllProducts(cid) {
     const updateCart = await CartsModel.findById(cid);
     updateCart.products = [];
     updateCart.save();
+    return updateCart;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -84,6 +81,8 @@ export async function deleteOneProduct(cid, pid) {
     const updateCart = await CartsModel.findById(cid);
     let updateProducts = [];
 
+    //Rellena el array de productos con todos aquellos productos cuyo id no coincide con el ingresado
+
     updateCart.products.forEach((object) => {
       if (object.product._id != pid) {
         updateProducts.push(object.product);
@@ -91,6 +90,7 @@ export async function deleteOneProduct(cid, pid) {
     });
     updateCart.products = updateProducts;
     updateCart.save();
+    return updateCart;
   } catch (error) {
     throw new Error(error.message);
   }
