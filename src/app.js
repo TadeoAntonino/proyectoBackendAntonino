@@ -11,6 +11,8 @@ import MongoStore from "connect-mongo";
 import UserRouter from "./routers/users.router.js";
 import AuthRouter from "./routers/auth.router.js";
 import passport from "./utils/passport.util.js";
+import PassportLocalRouter from "./routers/passportLocal.router.js";
+import GithubRouter from "./routers/github.router.js";
 
 dotenv.config();
 
@@ -42,6 +44,8 @@ app.use(passport.session());
 
 app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
+app.use("/api/passportLocal", PassportLocalRouter);
+app.use("/api/github", GithubRouter);
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");

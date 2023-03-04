@@ -3,6 +3,6 @@ export default function auth(req, res, next) {
     req.session.touch();
     next();
   } else {
-    res.status(400).send("Ruta restringida");
+    res.status(403).send("Usuario no registrado");
   }
 }
