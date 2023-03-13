@@ -1,0 +1,14 @@
+<h1>Iniciar sesión o registrarse</h1>
+<div>
+  <form action="/api/passport/login" method="post">
+    <div>
+      <input type="email" required="true" placeholder="email">
+    </div>
+    <div>
+      <input type="password" required="true" placeholder="contraseña">
+    </div>
+    <button type="submit">Log in</button>
+    <div>Puede registrarse <a href="/registrarse">aquí</a>.</div>
+  </form>
+  <a href="http://localhost:3000/api/github/login">Inicie sesión con GitHub</a>
+</div>

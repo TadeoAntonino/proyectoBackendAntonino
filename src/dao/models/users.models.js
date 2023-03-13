@@ -1,12 +1,12 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const schema = new Schema(
   {
-    first_name: {
+    firstName: {
       type: String,
       required: true,
     },
-    last_name: {
+    lastName: {
       type: String,
       required: true,
     },
@@ -22,6 +22,18 @@ const schema = new Schema(
     },
     password: {
       type: String,
+      required: true,
+      minLength: 6,
+      maxLength: 20,
+    },
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "carts",
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
       required: true,
     },
   },

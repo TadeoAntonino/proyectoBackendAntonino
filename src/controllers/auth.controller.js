@@ -1,4 +1,3 @@
-import { paginateSubDocs } from "mongoose-paginate-v2";
 import * as AuthService from "../services/auth.service.js";
 export async function login(req, res) {
   try {

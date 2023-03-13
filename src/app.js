@@ -13,6 +13,7 @@ import AuthRouter from "./routers/auth.router.js";
 import passport from "./utils/passport.util.js";
 import PassportLocalRouter from "./routers/passportLocal.router.js";
 import GithubRouter from "./routers/github.router.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("src/public"));
-// agregar el app.use(cookie()) y su correspondiente importación de cookie-parse que marca un error y no sé de qué 🚩🚩🚩
+
+app.use(cookieParser());
 app.use(
   session({
     store: new MongoStore({
@@ -42,18 +44,18 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/users", UserRouter);
+//app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/passportLocal", PassportLocalRouter);
 app.use("/api/github", GithubRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
+app.use("/", viewsRouter);
+app.use("/api/sessions", UserRouter);
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "src/views");
-
-app.use("/api/products", productsRouter);
-app.use("/api/carts", cartsRouter);
-app.use("/", viewsRouter);
 
 const server = app.listen(PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${PORT}`)

@@ -5,17 +5,11 @@ import * as CartsController from "../controllers/carts.controller.js";
 const router = Router();
 
 router.post("/", CartsController.addCart);
-
 router.get("/:cid", CartsController.getCart);
-
 router.put("/:cid/", CartsController.updateCart);
-
 router.put("/:cid/product/:pid", CartsController.updateProductQ);
-
 router.post("/:cid/product/:pid/:quantity", CartsController.addProductToCart);
-
 router.delete("/:cid", CartsController.deleteAllProducts);
-
 router.delete("/:cid/product/:pid", CartsController.deleteOneProduct);
 
 // Con File System

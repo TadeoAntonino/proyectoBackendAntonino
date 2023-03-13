@@ -1,18 +1,16 @@
 import { Router } from "express";
-//import ProductManager from "../dao/productManager.js";
 import * as ProductController from "../controllers/products.controller.js";
-
-//const productoManager = new ProductManager();
+//import ProductManager from "../dao/productManager.js";
 
 const router = Router();
-
-// Con controllers
 
 router.get("/", ProductController.getProducts);
 router.get("/:pid", ProductController.getProductById);
 router.post("/", ProductController.addProduct);
 router.put("/:pid", ProductController.updateProduct);
 router.delete("/:pid", ProductController.deleteProduct);
+
+//const productoManager = new ProductManager();
 
 // Con File System
 

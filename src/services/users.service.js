@@ -1,4 +1,5 @@
 import { UserModel } from "../dao/models/users.models.js";
+import * as cartsService from "./carts.service.js";
 import bcrypt from "bcrypt";
 
 export async function createUser(data) {
@@ -8,8 +9,15 @@ export async function createUser(data) {
       throw new Error("El usuario ya existe, por favor utilice otro E-Mail 😀");
     } else {
       data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10));
-      const user = await UserModel.create(data);
-      return user;
+
+      const newUserCart = await cartsService.addCart();
+
+      const newUser = await UserModel.create({
+        ...data,
+        cart: newUserCart._id,
+      });
+
+      return newUser;
     }
   } catch (error) {
     throw new Error(error.message);

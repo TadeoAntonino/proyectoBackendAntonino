@@ -48,6 +48,7 @@ passport.use(
         const login = await AuthService.login(username, password);
         if (login) {
           const user = await UserModel.findOne({ email: username });
+          delete user.password;
           return done(null, user);
         } else {
           return done(null, false);
