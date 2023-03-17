@@ -10,5 +10,7 @@ router.get("/carts/:cid", ViewsController.getCartById);
 router.get("/", ViewsController.login);
 router.get("/registrarse", ViewsController.registrarUser);
 router.get("/profile", ViewsController.getProfile);
+router.get("/admin", ViewsController.getAdminField);
+router.get("/fail", ViewsController.fail);
 
 export default router;

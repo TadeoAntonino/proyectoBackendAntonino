@@ -1,19 +1,19 @@
 <h1>Registrate aquí</h1>
-<form action="/api/passport/signup" method="post">
+<form action="/api/passportLocal/signup" method="post">
   <div>
-    <input type="text" required="true" placeholder="Nombre">
+    <input type="text" required="true" name="firstName" id="firstName" placeholder="Nombre">
   </div>
     <div>
-    <input type="text" required="true" placeholder="Apellido">
+    <input type="text" required="true" name="lastName" id="lastName" placeholder="Apellido">
   </div>
     <div>
-    <input type="number" required="true" placeholder="Edad">
+    <input type="number" required="true" name="age" id="age" placeholder="Edad">
   </div>
   <div>
-    <input type="email" required="true" placeholder="Correo">
+    <input type="email" required="true" name="email" id="email" placeholder="Correo">
   </div>
   <div>
-    <input type="password" required="true" placeholder="Contraseña">
+    <input type="password" required="true" name="password" id="password" placeholder="Contraseña">
   </div>
   <button type="submit">Regístrate</button>
 </form>

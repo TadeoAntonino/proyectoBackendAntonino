@@ -8,19 +8,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
-passport.deserializeUser(function (_id, done) {
-  UserModel.findById(_id),
-    function (err, user) {
-      done(err, user);
-    };
+passport.deserializeUser(async (_id, done) => {
+  const user = await UserService.getUserById(_id);
+  if (!user) {
+    return done(null, false);
+  }
 });
 
 passport.use(
-  "singup",
+  "signup",
   new passportLocal.Strategy(
     { passReqToCallback: true, usernameField: "email" },
     async function (req, username, password, done) {
@@ -33,6 +33,7 @@ passport.use(
           return done(null, user);
         }
       } catch (error) {
+        console.error(error);
         throw new Error(error.message);
       }
     }
@@ -54,6 +55,7 @@ passport.use(
           return done(null, false);
         }
       } catch (error) {
+        console.error(error);
         throw new Error(error.message);
       }
     }
@@ -72,6 +74,7 @@ passport.use(
       try {
         done(null, true);
       } catch (error) {
+        console.error(error);
         throw new Error(error.message);
       }
     }

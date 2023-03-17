@@ -10,17 +10,23 @@ router.get("/fail", (req, res) => {
 router.post(
   "/signup",
   passport.authenticate("signup", {
-    failureRedirect: "/api/passportLocal/fail",
+    failureRedirect: "/fail",
+    failureFlash: true,
+    keepSessionInfo: true,
   }),
   (req, res) => {
-    res.status(201).json({ user: req.user });
+    try {
+      res.redirect("/products");
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
 router.post(
   "/login",
   passport.authenticate("login", {
-    failureRedirect: "/api/passportLocal/fail",
+    failureRedirect: "/fail",
   }),
   (req, res) => {
     req.session.logged = true;

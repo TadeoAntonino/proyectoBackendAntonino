@@ -52,6 +52,9 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 app.use("/api/sessions", UserRouter);
+app.use(function (err, req, res, next) {
+  console.log(err);
+});
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");

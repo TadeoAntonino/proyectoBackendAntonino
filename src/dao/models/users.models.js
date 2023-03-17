@@ -24,7 +24,6 @@ const schema = new Schema(
       type: String,
       required: true,
       minLength: 6,
-      maxLength: 20,
     },
     cart: {
       type: Schema.Types.ObjectId,

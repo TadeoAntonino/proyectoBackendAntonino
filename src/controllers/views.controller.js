@@ -90,3 +90,25 @@ export async function getProfile(req, res) {
     throw new Error(error.message);
   }
 }
+
+export async function getAdminField(req, res) {
+  try {
+    const user = await UserServices.getUser({}, { lean: true });
+    if (user.role === "admin") {
+      return res.status(200).render("admin", { user });
+    }
+    return res
+      .status(401)
+      .json({ Error: "Usted debe ser admin para poder acceder" });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function fail(req, res) {
+  try {
+    res.status(200).render("fail");
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

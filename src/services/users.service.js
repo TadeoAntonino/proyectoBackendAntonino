@@ -58,3 +58,22 @@ export async function updateUser(email, data, updatePass = false) {
     throw new Error(error.message);
   }
 }
+
+export async function getUserById(id) {
+  try {
+    const user = await UserModel.findById(id)
+      .populate({
+        path: "cart",
+        populate: {
+          path: "products.product",
+        },
+      })
+      .lean();
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
