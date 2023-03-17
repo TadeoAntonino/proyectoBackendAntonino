@@ -3,7 +3,7 @@ import * as CartServices from "../services/carts.service.js";
 import * as UserServices from "../services/users.service.js";
 import auth from "../middlewares/auth.middleware.js";
 
-export async function getHome(req, res) {
+export async function getProductsIndex(req, res) {
   try {
     const paginatedData = await ProductsServices.getProducts(
       {},

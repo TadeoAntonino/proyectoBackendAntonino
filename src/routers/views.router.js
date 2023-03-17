@@ -3,7 +3,7 @@ import * as ViewsController from "../controllers/views.controller.js";
 
 const router = Router();
 
-router.get("/products", ViewsController.getHome);
+router.get("/products", ViewsController.getProductsIndex);
 router.get("/realtimeproducts", ViewsController.getRealTimeProducts);
 router.get("/chat", ViewsController.getChat);
 router.get("/carts/:cid", ViewsController.getCartById);
