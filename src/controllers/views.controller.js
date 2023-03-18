@@ -99,7 +99,7 @@ export async function getAdminField(req, res) {
     }
     return res
       .status(401)
-      .json({ Error: "Usted debe ser admin para poder acceder" });
+      .json({ Error: "Usted debe ser admin para poder acceder aquí" });
   } catch (error) {
     throw new Error(error.message);
   }
