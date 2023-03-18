@@ -94,7 +94,7 @@ export async function getProfile(req, res) {
 export async function getAdminField(req, res) {
   try {
     const user = await UserServices.getUser({}, { lean: true });
-    if (user.role === "admin") {
+    if (user.email === "adminCoder@coder.com") {
       return res.status(200).render("admin", { user });
     }
     return res
