@@ -55,11 +55,11 @@ export async function getChat(req, res) {
 
 export async function login(req, res) {
   try {
-    if (auth()) {
-      return res.status(200).redirect("/products");
-    } else {
+    if (!req.isAuthenticated()) {
       return res.status(200).render("login");
     }
+
+    return res.status(200).redirect("/products");
   } catch (error) {
     throw new Error(error.message);
   }
@@ -84,10 +84,15 @@ export async function getCartById(req, res) {
 
 export async function getProfile(req, res) {
   try {
-    const user = await UserServices.getUser({}, { lean: true });
-    res.status(200).render("profile", user);
+    const user = await UserServices.getUser(
+      req?.session?.passport?.user?.email,
+      {
+        lean: true,
+      }
+    );
+    res.status(200).render("profile", { user });
   } catch (error) {
-    throw new Error(error.message);
+    console.log(error.message);
   }
 }
 

@@ -13,6 +13,7 @@ export async function createUser(req, res) {
 export async function getUser(req, res) {
   try {
     const { email } = req.params;
+    req.session.user = email;
     const user = await UserService.getUser(email);
     if (user) {
       delete user.password;

@@ -27,11 +27,12 @@ router.post(
   "/login",
   passport.authenticate("login", {
     failureRedirect: "/fail",
+    failureMessage: true,
   }),
-  (req, res) => {
+  function (req, res) {
     req.session.logged = true;
     req.session.user = req.user;
-    res.send("Usuario registrado con passport Local 😁");
+    res.status(200).redirect("/products");
   }
 );
 

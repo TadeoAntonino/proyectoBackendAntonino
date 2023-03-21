@@ -8,15 +8,23 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-passport.serializeUser((user, done) => {
-  done(null, user._id);
+// passport.serializeUser((user, done) => {
+//   done(null, user._id);
+// });
+
+// passport.deserializeUser(async (_id, done) => {
+//   const user = await UserService.getUserById(_id);
+//   if (!user) {
+//     return done(null, false);
+//   }
+// });
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
 });
 
-passport.deserializeUser(async (_id, done) => {
-  const user = await UserService.getUserById(_id);
-  if (!user) {
-    return done(null, false);
-  }
+passport.deserializeUser(function (user, done) {
+  done(null, user);
 });
 
 passport.use(

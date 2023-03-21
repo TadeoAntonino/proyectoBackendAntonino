@@ -5,7 +5,8 @@ export async function login(email, password) {
   try {
     const user = await UserService.getUser(email);
     if (!user) {
-      throw new Error("El usuario buscado no existe");
+      console.error("El usuario buscado no existe");
+      return false;
     } else {
       const comparaPasswords = bcrypt.compareSync(password, user.password);
       if (comparaPasswords) {

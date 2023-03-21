@@ -1,25 +1,27 @@
-<h1>Perfil de usuario</h1>
-
 <div>
     <div>
         <p>¡¡¡ BIENVENIDO !!!</p>
+        <div name="role" id="role">Perfil de {{user.role}}</div>
     </div>
     <div>
-        <label>Nombre:</label>
+        <label name="firstName" id="firstName">Nombre:</label>
         <span>{{user.firstName}}</span>
     </div>
     <div>
-        <label>Apellido:</label>
+        <label name="lastName" id="lastName">Apellido:</label>
         <span>{{user.lastName}}</span>
     </div>
     <div>
-        <label>Email:</label>
+        <label name="email" id="email">Email:</label>
         <span>{{user.email}}</span>
     </div>
     <div>
-        <label>Edad:</label>
+        <label name="age" id="age">Edad:</label>
         <span>{{user.age}}</span>
     </div>
+    <script>
+        console.log("el user", user)
+    </script>
 </div>
 
 <div>
