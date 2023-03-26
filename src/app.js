@@ -1,18 +1,28 @@
 import express from "express";
+
 import productsRouter from "./routers/products.router.js";
 import cartsRouter from "./routers/carts.router.js";
-import { engine } from "express-handlebars";
 import viewsRouter from "./routers/views.router.js";
-import { Server } from "socket.io";
-import dotenv from "dotenv";
-import "./config/db.js";
-import session from "express-session";
-import MongoStore from "connect-mongo";
 import UserRouter from "./routers/users.router.js";
 import AuthRouter from "./routers/auth.router.js";
+import GithubRouter from "./routers/github.router.js";
+import MockingRouter from "./routers/mocking.router.js";
+
+import { engine } from "express-handlebars";
+
+import { Server } from "socket.io";
+
+import dotenv from "dotenv";
+
+import "./config/db.js";
+
+import session from "express-session";
+
+import MongoStore from "connect-mongo";
+
 import passport from "./utils/passport.util.js";
 import PassportLocalRouter from "./routers/passportLocal.router.js";
-import GithubRouter from "./routers/github.router.js";
+
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -52,6 +62,8 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 app.use("/api/sessions", UserRouter);
+app.use("/api/mock", MockingRouter);
+
 app.use(function (err, req, res, next) {
   console.log(err);
 });
