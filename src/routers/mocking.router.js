@@ -1,8 +1,15 @@
 import { Router } from "express";
 import renderMockProducts from "../mocking/genProducts.js";
 
-const router = Router();
+class MockingRouter {
+  constructor() {
+    this.expressRouter = Router();
+    this.expressRouter.get("/mockingproducts", renderMockProducts);
+  }
 
-router.get("/mockingproducts", renderMockProducts);
+  getRouter() {
+    return this.expressRouter;
+  }
+}
 
-export default router;
+export default new MockingRouter();

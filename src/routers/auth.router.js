@@ -1,9 +1,16 @@
 import { Router } from "express";
 import * as AuthController from "../controllers/auth.controller.js";
 
-const router = new Router();
+class AuthRouter {
+  constructor() {
+    this.expressRouter = Router();
+    this.expressRouter.post("/login", AuthController.login);
+    this.expressRouter.get("/logout", AuthController.logout);
+  }
 
-router.post("/login", AuthController.login);
-router.get("/logout", AuthController.logout);
+  getRouter() {
+    return this.expressRouter;
+  }
+}
 
-export default router;
+export default new AuthRouter();

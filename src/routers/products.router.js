@@ -2,13 +2,22 @@ import { Router } from "express";
 import * as ProductController from "../controllers/products.controller.js";
 //import ProductManager from "../dao/productManager.js";
 
-const router = Router();
+class ProductsRouter {
+  constructor() {
+    this.expressRouter = Router();
+    this.expressRouter.get("/", ProductController.getProducts);
+    this.expressRouter.get("/:pid", ProductController.getProductById);
+    this.expressRouter.post("/", ProductController.addProduct);
+    this.expressRouter.put("/:pid", ProductController.updateProduct);
+    this.expressRouter.delete("/:pid", ProductController.deleteProduct);
+  }
 
-router.get("/", ProductController.getProducts);
-router.get("/:pid", ProductController.getProductById);
-router.post("/", ProductController.addProduct);
-router.put("/:pid", ProductController.updateProduct);
-router.delete("/:pid", ProductController.deleteProduct);
+  getRouter() {
+    return this.expressRouter;
+  }
+}
+
+export default new ProductsRouter();
 
 //const productoManager = new ProductManager();
 
@@ -40,5 +49,3 @@ router.put("/:pid", (req, res) => {
 router.delete("/", (req, res) => {
   productoManager.deleteProduct();
 }); */
-
-export default router;

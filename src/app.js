@@ -54,7 +54,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use("/api/users", UserRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/passportLocal", PassportLocalRouter);
 app.use("/api/github", GithubRouter);
