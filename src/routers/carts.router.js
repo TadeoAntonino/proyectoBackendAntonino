@@ -1,25 +1,25 @@
 import { Router } from "express";
-import * as CartsController from "../controllers/carts.controller.js";
+import * as cartsController from "../controllers/carts.controller.js";
 //import CartManager from "../dao/cartManager.js";
 
 class CartRouter {
   constructor() {
     this.expressRouter = Router();
-    this.expressRouter.post("/", CartsController.addCart);
+    this.expressRouter.post("/", cartsController.addCart);
     this.expressRouter.post(
       "/:cid/product/:pid/:quantity",
-      CartsController.addProductToCart
+      cartsController.addProductToCart
     );
-    this.expressRouter.get("/:cid", CartsController.getCart);
-    this.expressRouter.put("/:cid/", CartsController.updateCart);
+    this.expressRouter.get("/:cid", cartsController.getCart);
+    this.expressRouter.put("/:cid/", cartsController.updateCart);
     this.expressRouter.put(
       "/:cid/product/:pid",
-      CartsController.updateProductQ
+      cartsController.updateProductQ
     );
-    this.expressRouter.delete("/:cid", CartsController.deleteAllProducts);
+    this.expressRouter.delete("/:cid", cartsController.deleteAllProducts);
     this.expressRouter.delete(
       "/:cid/product/:pid",
-      CartsController.deleteOneProduct
+      cartsController.deleteOneProduct
     );
   }
 

@@ -1,16 +1,26 @@
 import { Router } from "express";
-import * as ViewsController from "../controllers/views.controller.js";
+import * as viewsController from "../controllers/views.controller.js";
 
-const router = Router();
+class ViewsRouter {
+  constructor() {
+    this.expressRouter = Router();
+    this.expressRouter.get("/products", viewsController.getProductsIndex);
+    this.expressRouter.get(
+      "/realtimeproducts",
+      viewsController.getRealTimeProducts
+    );
+    this.expressRouter.get("/chat", viewsController.getChat);
+    this.expressRouter.get("/carts/:cid", viewsController.getCartById);
+    this.expressRouter.get("/", viewsController.login);
+    this.expressRouter.get("/registrarse", viewsController.registrarUser);
+    this.expressRouter.get("/profile", viewsController.getProfile);
+    this.expressRouter.get("/admin", viewsController.getAdminField);
+    this.expressRouter.get("/fail", viewsController.fail);
+  }
 
-router.get("/products", ViewsController.getProductsIndex);
-router.get("/realtimeproducts", ViewsController.getRealTimeProducts);
-router.get("/chat", ViewsController.getChat);
-router.get("/carts/:cid", ViewsController.getCartById);
-router.get("/", ViewsController.login);
-router.get("/registrarse", ViewsController.registrarUser);
-router.get("/profile", ViewsController.getProfile);
-router.get("/admin", ViewsController.getAdminField);
-router.get("/fail", ViewsController.fail);
+  getRouter() {
+    return this.expressRouter;
+  }
+}
 
-export default router;
+export default new ViewsRouter();

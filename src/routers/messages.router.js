@@ -1,11 +1,11 @@
 import { Router } from "express";
-import * as MessagesController from "../controllers/messages.controllers.js";
+import * as messagesController from "../controllers/messages.controllers.js";
 
 class MessagesRouter {
   constructor() {
     this.expressRouter = Router();
-    this.expressRouter.get("/", MessagesController.getMessages);
-    this.expressRouter.put("/", MessagesController.addMessages);
+    this.expressRouter.get("/", messagesController.getMessages);
+    this.expressRouter.put("/", messagesController.addMessages);
   }
 
   getRouter() {

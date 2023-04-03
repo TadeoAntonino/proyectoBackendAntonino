@@ -39,7 +39,6 @@ class CartsService {
       };
       updateCart.products.push(productToPush);
       updateCart.save();
-
       return updateCart;
     } catch (error) {
       throw new Error(error.message);
@@ -59,7 +58,6 @@ class CartsService {
           return updateCart;
         }
       });
-
       return updateCart;
     } catch (error) {
       throw new Error(error.message);

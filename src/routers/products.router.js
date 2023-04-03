@@ -1,15 +1,15 @@
 import { Router } from "express";
-import * as ProductController from "../controllers/products.controller.js";
+import * as productController from "../controllers/products.controller.js";
 //import ProductManager from "../dao/productManager.js";
 
 class ProductsRouter {
   constructor() {
     this.expressRouter = Router();
-    this.expressRouter.get("/", ProductController.getProducts);
-    this.expressRouter.get("/:pid", ProductController.getProductById);
-    this.expressRouter.post("/", ProductController.addProduct);
-    this.expressRouter.put("/:pid", ProductController.updateProduct);
-    this.expressRouter.delete("/:pid", ProductController.deleteProduct);
+    this.expressRouter.get("/", productController.getProducts);
+    this.expressRouter.get("/:pid", productController.getProductById);
+    this.expressRouter.post("/", productController.addProduct);
+    this.expressRouter.put("/:pid", productController.updateProduct);
+    this.expressRouter.delete("/:pid", productController.deleteProduct);
   }
 
   getRouter() {

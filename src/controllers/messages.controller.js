@@ -1,10 +1,10 @@
-import * as MessagesServices from "../services/messages.service.js";
+import * as messagesServices from "../services/messages.service.js";
 import { STATUS } from "../constants/constants.js";
 
 class MessagesController {
   async getMessages(req, res) {
     try {
-      const response = await MessagesServices.getMessages();
+      const response = await messagesServices.getMessages();
       res.json({
         message: response,
         status: STATUS.SUCCESS,
@@ -20,7 +20,7 @@ class MessagesController {
   async addMessages(req, res) {
     try {
       const { body } = req;
-      const response = await MessagesServices.addMessages(body);
+      const response = await messagesServices.addMessages(body);
       res.json({
         message: response,
         status: STATUS.SUCCESS,

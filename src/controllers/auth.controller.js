@@ -1,10 +1,10 @@
-import * as AuthService from "../services/auth.service.js";
+import * as authService from "../services/auth.service.js";
 
 class AuthController {
   async login(req, res) {
     try {
       const { email, password } = req.body;
-      const logged = await AuthService.login(email, password);
+      const logged = await authService.login(email, password);
       if (logged) {
         req.session.logged = true;
         res.send("Usuario registrado");

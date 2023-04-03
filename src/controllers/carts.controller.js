@@ -1,10 +1,11 @@
-import * as CartServices from "../services/carts.service.js";
+import * as cartServices from "../services/carts.service.js";
 import { STATUS } from "../constants/constants.js";
+//import factory from "../services/factory.js";
 
 class CartsController {
   async getCart(req, res) {
     try {
-      const response = await CartServices.getCart();
+      const response = await cartServices.getCart();
       res.status(200).json({
         carts: response,
         status: STATUS.SUCCESS,
@@ -20,7 +21,7 @@ class CartsController {
   async getCartById(req, res) {
     try {
       const { cid } = req.params;
-      const response = await CartServices.getCartById(cid);
+      const response = await cartServices.getCartById(cid);
       res.status(200).json({
         products: response,
         status: STATUS.SUCCESS,
@@ -36,7 +37,7 @@ class CartsController {
   async addCart(req, res) {
     try {
       const { body } = req;
-      const response = await CartServices.addCart(body);
+      const response = await cartServices.addCart(body);
       res.status(201).json({
         newCart: response,
         status: STATUS.SUCCESS,
@@ -53,7 +54,7 @@ class CartsController {
     try {
       const { cid } = req.params;
       const { products } = req.body;
-      const response = await CartServices.updateCart(cid, products);
+      const response = await cartServices.updateCart(cid, products);
       res.status(201).json({
         cart: response,
         status: STATUS.SUCCESS,
@@ -70,7 +71,7 @@ class CartsController {
     try {
       const { cid, pid } = req.params;
       const { quantity } = req.body;
-      const response = await CartServices.updateProductQ(cid, pid, quantity);
+      const response = await cartServices.updateProductQ(cid, pid, quantity);
       res.status(201).json({
         cart: response,
         status: STATUS.SUCCESS,
@@ -86,7 +87,7 @@ class CartsController {
   async deleteAllProducts(req, res) {
     try {
       const { cid } = req.params;
-      await CartServices.deleteAllProducts(cid);
+      await cartServices.deleteAllProducts(cid);
       res.status(201).json({
         cart: "Se eliminaron todos los productos",
         status: STATUS.SUCCESS,
@@ -103,7 +104,7 @@ class CartsController {
     try {
       const { cid } = req.params;
       const { pid } = req.params;
-      await CartServices.deleteOneProduct(cid, pid);
+      await cartServices.deleteOneProduct(cid, pid);
       res.status(201).json({
         cart: "Se eliminó el producto",
         status: STATUS.SUCCESS,
@@ -119,7 +120,7 @@ class CartsController {
   async addProductToCart(req, res) {
     try {
       const { cid, pid, quantity } = req.params;
-      const cart = await CartServices.addProductToCart(
+      const cart = await cartServices.addProductToCart(
         cid,
         pid,
         Number(quantity)

@@ -1,4 +1,5 @@
-import * as ProductService from "../services/products.service.js";
+import * as productService from "../services/products.service.js";
+//import factory from "../services/factory.js";
 
 class ProductsController {
   async getProducts(req, res) {
@@ -7,7 +8,7 @@ class ProductsController {
 
       console.log(req.query);
 
-      const response = await ProductService.getProducts(
+      const response = await productService.getProducts(
         Number(page),
         Number(limit),
         sort,
@@ -27,7 +28,7 @@ class ProductsController {
 
   async getProductById(req, res) {
     try {
-      const response = await ProductService.getProductById();
+      const response = await productService.getProductById();
       res.json({
         product: response,
         status: "SUCCESS",
@@ -42,7 +43,7 @@ class ProductsController {
 
   async addProduct(req, res) {
     try {
-      const response = await ProductService.addProduct();
+      const response = await productService.addProduct();
       res.json({
         product: response,
         status: "SUCCESS",
@@ -57,7 +58,7 @@ class ProductsController {
 
   async deleteProduct(req, res) {
     try {
-      const response = await ProductService.deleteProduct();
+      const response = await productService.deleteProduct();
       res.json({
         product: response,
         status: "SUCCESS",
@@ -72,7 +73,7 @@ class ProductsController {
 
   async updateProduct(req, res) {
     try {
-      const response = await ProductService.updateProduct();
+      const response = await productService.updateProduct();
       res.json({
         product: response,
         status: "SUCCESS",

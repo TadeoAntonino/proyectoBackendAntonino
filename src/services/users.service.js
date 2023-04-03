@@ -19,7 +19,6 @@ class UserService {
           ...data,
           cart: newUserCart._id,
         });
-
         return newUser;
       }
     } catch (error) {
@@ -30,7 +29,7 @@ class UserService {
   async getUser(email) {
     try {
       const user = await UserModel.find({ email }).lean();
-      return user[0];
+      return user;
     } catch (error) {
       throw new Error(error.message);
     }

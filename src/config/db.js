@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config();
+import config from "./config.js";
 
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URI, (err) => {
+mongoose.connect(config.MONGO_URI, (err) => {
   if (err) {
     console.log(`Error: ${err} 🛑`);
   } else {
