@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "../utils/passport.util.js";
+import logger from "../utils/logger.js";
 
 class PassportLocalRouter {
   constructor() {
@@ -19,7 +20,7 @@ class PassportLocalRouter {
         try {
           res.redirect("/products");
         } catch (error) {
-          console.log(error);
+          logger.error(err);
         }
       }
     );

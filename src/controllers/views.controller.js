@@ -1,6 +1,7 @@
 import * as productsServices from "../services/products.service.js";
 import * as cartServices from "../services/carts.service.js";
 import * as userServices from "../services/users.service.js";
+import logger from "../utils/logger.js";
 //import auth from "../middlewares/auth.middleware.js";
 
 class ViewsController {
@@ -93,7 +94,7 @@ class ViewsController {
       );
       res.status(200).render("profile", { user });
     } catch (error) {
-      console.log(error.message);
+      logger.error(err);
     }
   }
 

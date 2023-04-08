@@ -10,4 +10,5 @@ export default {
   CLIENT_SECRET: process.env.CLIENT_SECRET,
   APP_ID: process.env.APP_ID,
   PERSISTENCIA: process.env.PERSISTENCIA || "mongodb",
+  NODE_ENV: process.env.NODE_ENV || "dev",
 };

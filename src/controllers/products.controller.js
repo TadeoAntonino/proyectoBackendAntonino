@@ -1,4 +1,5 @@
 import * as productService from "../services/products.service.js";
+import CustomError from "../utils/customError.js";
 //import factory from "../services/factory.js";
 
 class ProductsController {
@@ -19,10 +20,17 @@ class ProductsController {
         status: "SUCCESS",
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: "FAIL",
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontraron los productos",
+        "los productos no se han encontrado",
+        3
+      );
+
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: "FAIL",
+      // });
     }
   }
 
@@ -34,10 +42,16 @@ class ProductsController {
         status: "SUCCESS",
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: "FAIL",
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontró el producto",
+        "el producto no se ha encontrado",
+        3
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: "FAIL",
+      // });
     }
   }
 
@@ -49,10 +63,16 @@ class ProductsController {
         status: "SUCCESS",
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: "FAIL",
-      });
+      throw new CustomError(
+        "incomplete data",
+        "no se proporcionó toda la información",
+        "se debe agregar toda la información necesaria",
+        4
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: "FAIL",
+      // });
     }
   }
 
@@ -64,10 +84,16 @@ class ProductsController {
         status: "SUCCESS",
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: "FAIL",
-      });
+      throw new CustomError(
+        "not found",
+        "no se encuentra el producto",
+        "no se encuentra el producto que se requiere eliminar",
+        5
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: "FAIL",
+      // });
     }
   }
 
@@ -79,10 +105,16 @@ class ProductsController {
         status: "SUCCESS",
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: "FAIL",
-      });
+      throw new CustomError(
+        "invalid data",
+        "no se ha proporcionado la información correcta",
+        "se requiere la información correspondiente",
+        7
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: "FAIL",
+      // });
     }
   }
 }

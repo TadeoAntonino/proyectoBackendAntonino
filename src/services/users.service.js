@@ -1,14 +1,18 @@
 import { UserModel } from "../dao/models/users.models.js";
 import * as cartsService from "./carts.service.js";
 import bcrypt from "bcrypt";
+import CustomError from "../utils/customError.js";
 
 class UserService {
   async createUser(data) {
     try {
       const userExists = await getUser(data.email);
       if (userExists) {
-        throw new Error(
-          "El usuario ya existe, por favor utilice otro E-Mail 😀"
+        throw new CustomError(
+          "invalid data",
+          "información no válida",
+          "el usuario ya existe",
+          1
         );
       } else {
         data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10));
@@ -22,7 +26,13 @@ class UserService {
         return newUser;
       }
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "invalid data",
+        "información no válida",
+        "el usuario ya existe",
+        1
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -31,7 +41,13 @@ class UserService {
       const user = await UserModel.find({ email }).lean();
       return user;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró al usuario",
+        "el usuario no se ha encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -57,7 +73,13 @@ class UserService {
         return user;
       }
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "invalid data",
+        "no se porporcionó la información correcta",
+        "ingrese nuevamente los datos",
+        5
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -72,11 +94,23 @@ class UserService {
         })
         .lean();
       if (!user) {
-        throw new Error("Usuario no encontrado");
+        throw new CustomError(
+          "not found",
+          "no se encontró el usuario",
+          "el usuario no fue encontrado",
+          3
+        );
+        // throw new Error("Usuario no encontrado");
       }
       return user;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró el usuario",
+        "el usuario no fue encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 }

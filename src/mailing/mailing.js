@@ -1,11 +1,5 @@
 import { createTransport } from "nodemailer";
-//import * as userController from "../controllers/users.controller.js";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-// let user = userController.getUser();
-// const { email } = user;
+import logger from "../utils/logger.js";
 
 const mailOptions = {
   from: process.env.MAILING_USER,
@@ -28,7 +22,7 @@ async function sendEmail() {
     const res = await transportGmail.sendMail(mailOptions);
     console.log(res);
   } catch (error) {
-    console.log("Error: ", error);
+    logger.error(error);
   }
 }
 

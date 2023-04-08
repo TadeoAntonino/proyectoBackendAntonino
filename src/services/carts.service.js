@@ -1,4 +1,5 @@
 import { CartsModel } from "../dao/models/carts.models.js";
+import CustomError from "../utils/customError.js";
 
 class CartsService {
   async getCart() {
@@ -8,7 +9,13 @@ class CartsService {
       }).populate("products");
       return carts;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontraron los carritos",
+        "los carritos no se han encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -17,7 +24,13 @@ class CartsService {
       const cart = await CartsModel.findById(cid).populate("products");
       return cart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró el carrito",
+        "el carrito no se ha encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -26,7 +39,13 @@ class CartsService {
       const cart = await CartsModel.create(data);
       return cart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "invalid data",
+        "no se proporcionó la información correcta",
+        "la información debe ser la correcta",
+        4
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -41,7 +60,13 @@ class CartsService {
       updateCart.save();
       return updateCart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró el carrito",
+        "el carrito a actualizar no fue encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -60,7 +85,13 @@ class CartsService {
       });
       return updateCart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "invalid data",
+        "no se proporciono una cantidad adecuada",
+        "la cantidad debe ser un entero positivo",
+        6
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -71,7 +102,13 @@ class CartsService {
       updateCart.save();
       return updateCart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontraron los productos",
+        "los productos no se han encontrado",
+        5
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -88,7 +125,13 @@ class CartsService {
       updateCart.save();
       return updateCart;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró el producto",
+        "el producto que se desea eliminar no se ha encontrado",
+        5
+      );
+      // throw new Error(error.message);
     }
   }
 }

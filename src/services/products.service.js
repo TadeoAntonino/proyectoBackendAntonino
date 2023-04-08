@@ -1,4 +1,5 @@
 import { ProductsModel } from "../dao/models/products.models.js";
+import CustomError from "../utils/customError.js";
 
 class ProductService {
   async getProducts(page, limit, sort, category) {
@@ -10,7 +11,13 @@ class ProductService {
       console.log(products);
       return products;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontraron los productos",
+        "los productos no se han encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -19,7 +26,13 @@ class ProductService {
       const product = await ProductsModel.findById(pid);
       return product;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encontró el producto",
+        "el producto no se ha encontrado",
+        3
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -28,7 +41,13 @@ class ProductService {
       const newProduct = await ProductsModel.create(data);
       return newProduct;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "incomplete data",
+        "no se proporcionó toda la información",
+        "se debe agregar toda la información necesaria",
+        4
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -39,7 +58,13 @@ class ProductService {
       });
       return productUpdated;
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "invalid data",
+        "no se ha proporcionado la información correcta",
+        "se requiere la información correspondiente",
+        7
+      );
+      // throw new Error(error.message);
     }
   }
 
@@ -47,7 +72,13 @@ class ProductService {
     try {
       await ProductsModel.findByIdAndDelete(pid);
     } catch (error) {
-      throw new Error(error.message);
+      throw new CustomError(
+        "not found",
+        "no se encuentra el producto",
+        "no se encuentra el producto que se requiere eliminar",
+        5
+      );
+      // throw new Error(error.message);
     }
   }
 }

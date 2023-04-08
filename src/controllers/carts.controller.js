@@ -1,5 +1,6 @@
 import * as cartServices from "../services/carts.service.js";
 import { STATUS } from "../constants/constants.js";
+import CustomError from "../utils/customError.js";
 //import factory from "../services/factory.js";
 
 class CartsController {
@@ -11,10 +12,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontraron los carritos",
+        "los carritos no se han encontrado",
+        3
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -27,10 +34,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontró el carrito",
+        "el carrito no se ha encontrado",
+        3
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -43,10 +56,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "invalid data",
+        "no se proporcionó la información correcta",
+        "la información debe ser la correcta",
+        4
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -60,10 +79,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontró el carrito",
+        "el carrito a actualizar no fue encontrado",
+        3
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -77,10 +102,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "invalid data",
+        "no se proporciono una cantidad adecuada",
+        "la cantidad debe ser un entero positivo",
+        6
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -93,10 +124,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontraron los productos",
+        "los productos no se han encontrado",
+        5
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -110,10 +147,16 @@ class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      res.status(400).json({
-        error: error.message,
-        status: STATUS.FAIL,
-      });
+      throw new CustomError(
+        "not found",
+        "no se encontró el producto",
+        "el producto que se desea eliminar no se ha encontrado",
+        5
+      );
+      // res.status(400).json({
+      //   error: error.message,
+      //   status: STATUS.FAIL,
+      // });
     }
   }
 
@@ -132,10 +175,16 @@ class CartsController {
           cart: cart,
         });
       } else {
-        res.status(404).json({
-          status: STATUS.FAIL,
-          message: `Error: el carrito no existe o la cantidad no es válida`,
-        });
+        throw new CustomError(
+          "incomplete data",
+          "no se proporcionó toda la información",
+          "debe proporcionarse más información",
+          6
+        );
+        // res.status(404).json({
+        //   status: STATUS.FAIL,
+        //   message: `Error: el carrito no existe o la cantidad no es válida`,
+        // });
       }
     } catch (error) {
       res.status(500).json({ Error: error.message });
