@@ -37,6 +37,9 @@ const schema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    owner: {
+      type: String,
+    },
   },
   {
     timestamps: true,
