@@ -78,6 +78,26 @@ class UserController {
       // throw new Error(error.message);
     }
   }
+
+  async changeRole(uid, req, res) {
+    try {
+      const user = await factory.user.getUserById(uid);
+      if (user.role === "premium") {
+        console.log("aquí debería decir que cambie el rol");
+      } else if (user.role === "user") {
+        console.log("aquí debería decir que cambie el rol");
+      } else user.role === "admin";
+      console.log("aquí debería decir que no se puede cambiar el rol");
+    } catch (error) {
+      throw new CustomError(
+        "not found",
+        "no se encontró el usuario",
+        "el usuario buscado no se encuentra",
+        3
+      );
+    }
+  }
+
   static getInstance() {
     if (this.#instance) {
       return this.#instance;

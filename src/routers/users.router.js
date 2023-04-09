@@ -18,6 +18,7 @@ class UserRouter {
       userController.updatePassword
     );
     this.expressRouter.get("/current", auth, userController.getUser); //No entendí bien si es así lo que pide la /current , lo entendí como que te traiga el usuario
+    this.expressRouter.get("/premium/:uid", auth, userController.changeRole);
   }
 
   getRouter() {
