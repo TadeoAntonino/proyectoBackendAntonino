@@ -86,13 +86,13 @@ class UserController {
       throw new Error(`Usuario no encontrado con id: ${uid}`);
     }
 
-    if (user.rol === "admin") {
+    if (user.role === "admin") {
       throw new Error("No se puede cambiar el rol de un usuario admin");
     }
 
-    const newRole = user.rol === "user" ? "premium" : "user";
+    const newRole = user.role === "user" ? "premium" : "user";
 
-    user.rol = newRole;
+    user.role = newRole;
 
     await user.updateOne();
 
