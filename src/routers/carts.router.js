@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as cartsController from "../controllers/carts.controller.js";
+import cartsController from "../controllers/carts.controller.js";
 //import CartManager from "../dao/cartManager.js";
 
 class CartRouter {

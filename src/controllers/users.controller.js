@@ -3,6 +3,8 @@ import factory from "../services/factory.js";
 import CustomError from "../utils/customError.js";
 
 class UserController {
+  static #instance;
+
   async createUser(req, res) {
     try {
       const data = req.body;
@@ -76,6 +78,14 @@ class UserController {
       // throw new Error(error.message);
     }
   }
+  static getInstance() {
+    if (this.#instance) {
+      return this.#instance;
+    }
+
+    this.#instance = new UserController();
+    return this.#instance;
+  }
 }
 
-export default new UserController();
+export default UserController.getInstance();

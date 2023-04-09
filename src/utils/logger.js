@@ -22,13 +22,7 @@ const customLevels = {
 
 const logger = createLogger({
   levels: customLevels.levels,
-  format: combine(
-    timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-    printf(
-      (info) =>
-        `${info.timestamp} [${info.level.toUpperCase()}]: ${info.message}`
-    )
-  ),
+  format: { format: "YYYY-MM-DD HH:mm:ss" },
 });
 
 const dev = new transports.Console({

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as viewsController from "../controllers/views.controller.js";
+import viewsController from "../controllers/views.controller.js";
 
 class ViewsRouter {
   constructor() {

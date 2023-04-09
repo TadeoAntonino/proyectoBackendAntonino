@@ -4,6 +4,7 @@ import CustomError from "../utils/customError.js";
 //import factory from "../services/factory.js";
 
 class CartsController {
+  static #instance;
   async getCart(req, res) {
     try {
       const response = await cartServices.getCart();
@@ -190,6 +191,15 @@ class CartsController {
       res.status(500).json({ Error: error.message });
     }
   }
+
+  static getInstance() {
+    if (this.#instance) {
+      return this.#instance;
+    }
+
+    this.#instance = new CartsController();
+    return this.#instance;
+  }
 }
 
-export default new CartsController();
+export default CartsController.getInstance();

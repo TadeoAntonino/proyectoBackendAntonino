@@ -3,6 +3,8 @@ import CustomError from "../utils/customError.js";
 //import factory from "../services/factory.js";
 
 class ProductsController {
+  static #instance;
+
   async getProducts(req, res) {
     try {
       const { page = 1, limit = 5, sort = "asc", category } = req.query;
@@ -117,6 +119,15 @@ class ProductsController {
       // });
     }
   }
+
+  static getInstance() {
+    if (this.#instance) {
+      return this.#instance;
+    }
+
+    this.#instance = new ProductsController();
+    return this.#instance;
+  }
 }
 
-export default new ProductsController();
+export default ProductsController.getInstance();

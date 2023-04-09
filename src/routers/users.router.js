@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as userController from "../controllers/users.controller.js";
+import userController from "../controllers/users.controller.js";
 import auth from "../middlewares/auth.middleware.js";
 
 class UserRouter {

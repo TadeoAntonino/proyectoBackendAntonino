@@ -5,6 +5,8 @@ import logger from "../utils/logger.js";
 //import auth from "../middlewares/auth.middleware.js";
 
 class ViewsController {
+  static #instance;
+
   async getProductsIndex(req, res) {
     try {
       const paginatedData = await productsServices.getProducts(
@@ -119,6 +121,15 @@ class ViewsController {
       throw new Error(error.message);
     }
   }
+
+  static getInstance() {
+    if (this.#instance) {
+      return this.#instance;
+    }
+
+    this.#instance = new ViewsController();
+    return this.#instance;
+  }
 }
 
-export default new ViewsController();
+export default ViewsController.getInstance();
