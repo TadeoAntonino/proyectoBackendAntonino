@@ -13,4 +13,4 @@ class AuthRouter {
   }
 }
 
-export default new AuthRouter();
+export default AuthRouter;

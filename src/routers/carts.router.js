@@ -28,7 +28,7 @@ class CartRouter {
   }
 }
 
-export default new CartRouter();
+export default CartRouter;
 
 // Con File System
 

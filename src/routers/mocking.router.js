@@ -12,4 +12,4 @@ class MockingRouter {
   }
 }
 
-export default new MockingRouter();
+export default MockingRouter;

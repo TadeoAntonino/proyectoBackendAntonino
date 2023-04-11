@@ -1,4 +1,4 @@
-//  import * as userService from "../services/users.service.js";
+//  import userService from "../services/users.service.js";
 import factory from "../services/factory.js";
 import CustomError from "../utils/customError.js";
 
@@ -94,7 +94,7 @@ class UserController {
 
     user.role = newRole;
 
-    await user.updateOne();
+    await factory.user.updateUser(email, role);
 
     return user;
   }

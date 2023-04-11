@@ -1,5 +1,10 @@
 import { Router } from "express";
-import * as messagesController from "../controllers/messages.controllers.js";
+import MessagesController from "../controllers/messages.controllers.js";
+
+/* Instancias */
+
+const messagesControllerInstance = new MessagesController();
+const messagesController = messagesControllerInstance;
 
 class MessagesRouter {
   constructor() {
@@ -13,4 +18,4 @@ class MessagesRouter {
   }
 }
 
-export default new MessagesRouter();
+export default MessagesRouter;

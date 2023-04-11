@@ -1,7 +1,12 @@
 import { UserModel } from "../dao/models/users.models.js";
-import * as cartsService from "./carts.service.js";
+import CartsService from "./carts.service.js";
 import bcrypt from "bcrypt";
 import CustomError from "../utils/customError.js";
+
+/* Instancia */
+
+const cartsServiceInstance = new CartsService();
+const cartsService = cartsServiceInstance.addCart();
 
 class UserService {
   async createUser(data) {
@@ -17,12 +22,13 @@ class UserService {
       } else {
         data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10));
 
-        const newUserCart = await cartsService.addCart();
+        const newUserCart = await cartsService;
 
         const newUser = await UserModel.create({
           ...data,
           cart: newUserCart._id,
         });
+
         return newUser;
       }
     } catch (error) {
@@ -115,4 +121,4 @@ class UserService {
   }
 }
 
-export default new UserService();
+export default UserService;

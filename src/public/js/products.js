@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import * as UserController from "../../controllers/users.controller.js";
+import UserController from "../../controllers/users.controller.js";
 
 const saludarUser = document.getElementById("saludarUser");
 const user = UserController.getUser();
@@ -9,7 +9,6 @@ saludarUser.innerHTML = `<p>${user.firstName}</p>`;
 const socket = io();
 
 socket.on("listChange", (data) => {
-  console.log(data);
   updateList(data);
   changeSort(data);
 });
@@ -18,7 +17,6 @@ const listProducts = document.getElementById("listProducts");
 const button = document.getElementById("botonSort");
 
 const changeSort = (data) => {
-  console.log(data);
   button.addEventListener("click", () => {});
 };
 

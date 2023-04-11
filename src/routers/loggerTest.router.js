@@ -20,4 +20,4 @@ class LoggerTest {
   }
 }
 
-export default new LoggerTest();
+export default LoggerTest;

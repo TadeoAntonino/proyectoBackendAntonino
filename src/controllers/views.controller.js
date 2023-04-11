@@ -1,15 +1,26 @@
-import * as productsServices from "../services/products.service.js";
-import * as cartServices from "../services/carts.service.js";
-import * as userServices from "../services/users.service.js";
+import ProductService from "../services/products.service.js";
+import CartsService from "../services/carts.service.js";
+import UserService from "../services/users.service.js";
 import logger from "../utils/logger.js";
 //import auth from "../middlewares/auth.middleware.js";
+
+/* Instancias */
+
+const cartsServiceInstance = new CartsService();
+const cartsService = cartsServiceInstance;
+
+const productServiceInstance = new ProductService();
+const productService = productServiceInstance;
+
+const userServiceInstance = new UserService();
+const userService = userServiceInstance;
 
 class ViewsController {
   static #instance;
 
   async getProductsIndex(req, res) {
     try {
-      const paginatedData = await productsServices.getProducts(
+      const paginatedData = await productService.getProducts(
         {},
         { lean: true }
       );
@@ -30,7 +41,7 @@ class ViewsController {
       };
       let query = {};
       if (req.query.category) query.category = req.query.category;
-      const paginatedData = await productsServices.getProducts(query, options);
+      const paginatedData = await productService.getProducts(query, options);
       res.status(200).render("products", paginatedData);
     } catch (error) {
       res.status(500).json({ Error: error.message });
@@ -39,7 +50,7 @@ class ViewsController {
 
   async getRealTimeProducts(req, res) {
     try {
-      const paginatedData = await productsServices.getProducts(
+      const paginatedData = await productService.getProducts(
         {},
         { lean: true }
       );
@@ -79,7 +90,7 @@ class ViewsController {
 
   async getCartById(req, res) {
     try {
-      const cart = await cartServices.getCartById({}, { lean: true });
+      const cart = await cartsService.getCartById({}, { lean: true });
       res.status(200).render("cart", cart);
     } catch (error) {
       throw new Error(error.message);
@@ -88,7 +99,7 @@ class ViewsController {
 
   async getProfile(req, res) {
     try {
-      const user = await userServices.getUser(
+      const user = await userService.getUser(
         req?.session?.passport?.user?.email,
         {
           lean: true,
@@ -102,7 +113,7 @@ class ViewsController {
 
   async getAdminField(req, res) {
     try {
-      const user = await userServices.getUser({}, { lean: true });
+      const user = await userService.getUser({}, { lean: true });
       if (user.email === "adminCoder@coder.com") {
         return res.status(200).render("admin", { user });
       }

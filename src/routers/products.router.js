@@ -17,7 +17,7 @@ class ProductsRouter {
   }
 }
 
-export default new ProductsRouter();
+export default ProductsRouter;
 
 //const productoManager = new ProductManager();
 

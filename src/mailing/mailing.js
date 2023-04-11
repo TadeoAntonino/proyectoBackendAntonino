@@ -20,7 +20,6 @@ const transportGmail = createTransport({
 async function sendEmail() {
   try {
     const res = await transportGmail.sendMail(mailOptions);
-    console.log(res);
   } catch (error) {
     logger.error(error);
   }

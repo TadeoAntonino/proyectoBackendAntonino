@@ -23,4 +23,4 @@ class ViewsRouter {
   }
 }
 
-export default new ViewsRouter();
+export default ViewsRouter;

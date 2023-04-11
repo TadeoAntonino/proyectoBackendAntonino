@@ -136,4 +136,4 @@ class CartsService {
   }
 }
 
-export default new CartsService();
+export default CartsService;

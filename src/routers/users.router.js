@@ -26,4 +26,4 @@ class UserRouter {
   }
 }
 
-export default new UserRouter();
+export default UserRouter;

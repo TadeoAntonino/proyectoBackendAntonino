@@ -24,4 +24,4 @@ class GithubRouter {
   }
 }
 
-export default new GithubRouter();
+export default GithubRouter;

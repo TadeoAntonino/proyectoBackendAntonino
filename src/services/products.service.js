@@ -8,7 +8,6 @@ class ProductService {
         category ? { category: category } : {},
         { page, limit, sort: { price: sort }, lean: true }
       );
-      console.log(products);
       return products;
     } catch (error) {
       throw new CustomError(
@@ -83,4 +82,4 @@ class ProductService {
   }
 }
 
-export default new ProductService();
+export default ProductService;

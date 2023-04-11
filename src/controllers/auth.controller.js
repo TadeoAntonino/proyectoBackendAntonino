@@ -1,4 +1,9 @@
-import * as authService from "../services/auth.service.js";
+import AuthService from "../services/auth.service.js";
+
+/* Instancias */
+
+const authServiceInstance = new AuthService();
+const authService = authServiceInstance;
 
 class AuthController {
   async login(req, res) {

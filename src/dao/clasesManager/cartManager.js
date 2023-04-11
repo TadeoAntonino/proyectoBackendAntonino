@@ -18,7 +18,6 @@ export default class CartManager {
   }
 
   getCartProducts(id) {
-    console.log(this.carts);
     let idBuscado =
       this.carts.find((c) => {
         return c.id === parseInt(id);

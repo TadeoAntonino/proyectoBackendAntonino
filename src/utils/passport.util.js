@@ -1,12 +1,20 @@
 import passport from "passport";
-import passportLocal from "passport-local";
+import { Strategy } from "passport-local";
 import passportGithub from "passport-github2";
 import { UserModel } from "../dao/models/users.models.js";
-import * as UserService from "../services/users.service.js";
-import * as AuthService from "../services/auth.service.js";
+import UserService from "../services/users.service.js";
+import AuthService from "../services/auth.service.js";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+/* Instancias */
+
+const authServiceInstance = new AuthService();
+const authService = authServiceInstance;
+
+const userServiceInstance = new UserService();
+const userService = userServiceInstance;
 
 // passport.serializeUser((user, done) => {
 //   done(null, user._id);
@@ -19,17 +27,17 @@ dotenv.config();
 //   }
 // });
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser(function (user, done) {
+passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
 passport.use(
   "signup",
-  new passportLocal.Strategy(
+  new Strategy(
     { passReqToCallback: true, usernameField: "email" },
     async function (req, username, password, done) {
       try {
@@ -37,7 +45,7 @@ passport.use(
         if (userExists) {
           return done("El usuario ya existe", false);
         } else {
-          const user = await UserService.createUser(req.body);
+          const user = await userService.createUser(req.body);
           return done(null, user);
         }
       } catch (error) {
@@ -48,22 +56,42 @@ passport.use(
   )
 );
 
+// passport.use(
+//   "login",
+//   new passportLocal.Strategy(
+//     { passReqToCallback: true, usernameField: "email" },
+//     async function (req, username, password, done) {
+//       try {
+//         const login = await AuthService.login(username, password);
+//         if (login) {
+//           const user = await UserModel.findOne({ email: username });
+//           delete user.password;
+//           return done(null, user);
+//         } else {
+//           return done(null, false);
+//         }
+//       } catch (error) {
+//         console.error(error);
+//         throw new Error(error.message);
+//       }
+//     }
+//   )
+// );
+
 passport.use(
   "login",
-  new passportLocal.Strategy(
+  new Strategy(
     { passReqToCallback: true, usernameField: "email" },
     async function (req, username, password, done) {
       try {
-        const login = await AuthService.login(username, password);
+        const login = await authService.login(username, password);
         if (login) {
           const user = await UserModel.findOne({ email: username });
-          delete user.password;
           return done(null, user);
         } else {
           return done(null, false);
         }
       } catch (error) {
-        console.error(error);
         throw new Error(error.message);
       }
     }

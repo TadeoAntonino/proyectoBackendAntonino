@@ -1,6 +1,11 @@
-import * as productService from "../services/products.service.js";
+import ProductService from "../services/products.service.js";
 import CustomError from "../utils/customError.js";
 //import factory from "../services/factory.js";
+
+/* Instancia */
+
+const productServiceInstance = new ProductService();
+const productService = productServiceInstance;
 
 class ProductsController {
   static #instance;
@@ -8,8 +13,6 @@ class ProductsController {
   async getProducts(req, res) {
     try {
       const { page = 1, limit = 5, sort = "asc", category } = req.query;
-
-      console.log(req.query);
 
       const response = await productService.getProducts(
         Number(page),

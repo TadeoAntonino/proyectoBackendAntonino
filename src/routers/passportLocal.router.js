@@ -44,4 +44,4 @@ class PassportLocalRouter {
   }
 }
 
-export default new PassportLocalRouter();
+export default PassportLocalRouter;
