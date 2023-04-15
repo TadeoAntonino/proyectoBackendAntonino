@@ -92,7 +92,7 @@ passport.use(
           return done(null, false);
         }
       } catch (error) {
-        throw new Error(error.message);
+        throw new Error(error);
       }
     }
   )
@@ -111,7 +111,7 @@ passport.use(
         done(null, true);
       } catch (error) {
         console.error(error);
-        throw new Error(error.message);
+        throw new Error(error);
       }
     }
   )

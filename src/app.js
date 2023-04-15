@@ -18,6 +18,8 @@ import passport from "./utils/passport.util.js";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middlewares/errorHandler.middleware.js";
 import logger from "./utils/logger.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import SwaggerUiExpress from "swagger-ui-express";
 
 const app = express();
 
@@ -79,6 +81,7 @@ app.use("/api/passportLocal", passportLocalRouter);
 app.use("/api/github", githubRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+
 app.use("/", viewsRouter);
 app.use("/api/sessions", userRouter);
 app.use("/api/mock", mockingRouter);
@@ -93,6 +96,20 @@ app.set("view engine", "handlebars");
 app.set("views", "src/views");
 
 app.use(errorHandler);
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentación de mi API de backend de ecommerce",
+      description: "Backend de ecommerce para el curso de CoderHouse",
+    },
+  },
+  apis: ["./docs/carts/carts.yaml", "./docs/products/products.yaml"],
+};
+
+const spec = swaggerJSDoc(swaggerOptions);
+app.use("/apidocs", SwaggerUiExpress.serve, SwaggerUiExpress.setup(spec));
 
 const server = app.listen(config.PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${config.PORT}`)

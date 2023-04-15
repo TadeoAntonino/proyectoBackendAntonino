@@ -1,5 +1,8 @@
 import { createTransport } from "nodemailer";
 import logger from "../utils/logger.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const mailOptions = {
   from: process.env.MAILING_USER,

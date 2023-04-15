@@ -1,0 +1,71 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene información de todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se cargaron correctamente los productos
+        "500":
+        description: No se pudo conectar al servidor
+        components:
+          schemas:
+            Products:
+              type: object
+              properties:
+                _id:
+                  type: ObjectId
+                  description: Id del producto
+                title:
+                  type: String
+                  description: Titulo del producto
+              example:
+              _id: ObjectId("63ec1b91af624e3dbf210573")
+              title: Title
+    put:
+      summary: Actualizacion de la información de products
+      tags: -Products
+      parameters:
+        title: String
+        id: pid
+        in: path
+        required: true
+        description: id y titulo del producto que se quiere actualizar
+        schema: Products
+        $type: String
+      requestbody:
+        required: true
+        content:
+          application/json:
+          schema:
+          $ref: "#components/requestBodie/updateProduct"
+    post:
+      summary: Agregar un nuevo producto
+      tags: -Products
+      parameters:
+        title: title
+        id: pid
+        in: path
+        required: true
+        description: nuevo producto
+        schema:
+        $type: String
+      requestbody:
+        required: true
+        content:
+          application/json:
+          schema:
+          $ref: "#components/requestBodie/addProduct"
+    delete:
+      summary: Elimina el producto de id elegido
+      tags: -Products
+      parameters:
+        name: pid
+        in: path
+        required: true
+        description: id del producto que quiere borrar
+        schema:
+        $type: String
+      requestbody:
+        required: true

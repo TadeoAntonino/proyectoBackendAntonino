@@ -1,0 +1,66 @@
+paths:
+  /api/carts/:
+    get:
+      summary: Obtiene información de todos los carritos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Se obtuvieron correctamente los carritos
+        "500":
+        description: No se pudo conectar al servidor
+        components:
+          schemas:
+            Carts:
+              type: object
+              properties:
+                _id:
+                  type: ObjectId
+                  description: Id del carrito
+              example:
+              _id: ObjectId("6413114593d2b6c86d35ced8")
+    put:
+      summary: Actualizacion de carritos
+      tags: -Carts
+      parameters:
+        quantity: Number
+        products: pid
+        in: path
+        required: true
+        description: id y cantidad del producto que se quiere agregar al carrito
+        schema: Carts
+        $type: String
+      requestbody:
+        required: true
+        content:
+          application/json:
+          schema:
+          $ref: "#components/requestBodie/addCart"
+    post:
+      summary: Actualizacion de la información de un carrito
+      tags: -Carts
+      parameters:
+        name: cid
+        in: path
+        required: true
+        description: id del carrito que quiere modificar
+        schema:
+        $type: String
+      requestbody:
+        required: true
+        content:
+          application/json:
+          schema:
+          $ref: "#components/requestBodie/updateCart"
+    delete:
+      summary: Elimina del carrito el producto de id elegido
+      tags: -Carts
+      parameters:
+        name: pid
+        in: path
+        required: true
+        description: id del producto que quiere borrar del carrito
+        schema:
+        $type: String
+      requestbody:
+        required: true
