@@ -12,7 +12,7 @@ class CartRouter {
     );
     this.expressRouter.get("/:cid", cartsController.getCart);
     this.expressRouter.put("/:cid/", cartsController.updateCart);
-    this.expressRouter.put(
+    this.expressRouter.patch(
       "/:cid/product/:pid",
       cartsController.updateProductQ
     );
