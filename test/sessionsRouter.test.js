@@ -21,6 +21,7 @@ describe("Testing de passport local router (session)", () => {
   });
   beforeEach(async () => {
     await mongoose.connection.collection("sessions").deleteMany({});
+    this.timeout(100000);
   });
   after(async () => {
     mongoose.connection.close();

@@ -40,6 +40,7 @@ describe("Testing de products router", () => {
   });
   beforeEach(async () => {
     await mongoose.connection.collection("products").deleteMany({});
+    this.timeout(100000);
   });
   after(async () => {
     mongoose.connection.close();

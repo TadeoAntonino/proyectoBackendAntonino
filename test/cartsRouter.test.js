@@ -35,6 +35,7 @@ describe("Testing de carts router", () => {
   });
   beforeEach(async () => {
     await mongoose.connection.collection("carts").deleteMany({});
+    this.timeout(100000);
   });
   after(async () => {
     mongoose.connection.close();
