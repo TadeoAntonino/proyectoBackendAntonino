@@ -5,9 +5,11 @@ dotenv.config();
 
 export default async function mongoDB() {
   try {
-    mongoose.connect(process.env.MONGO_URI_TEST);
+    mongoose.connect(
+      "mongodb+srv://tadeoAntonino:coderhouse123@coderhousetadeo32220.a8ibyip.mongodb.net/test"
+    );
     console.log("Conectado a la base de testing");
   } catch (error) {
-    throw new Error(error);
+    console.log("🛑 ERROR:", error);
   }
 }
