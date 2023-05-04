@@ -1,6 +1,6 @@
-import mongoose, { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const schema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -26,14 +26,20 @@ const schema = new Schema(
       minLength: 6,
     },
     cart: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "carts",
+      required: true,
+      default: null,
     },
     role: {
       type: String,
-      enum: ["user", "admin", "premium"],
       default: "user",
-      required: true,
+      enum: ["admin", "user", "premium"],
+    },
+    platform: {
+      type: String,
+      enum: ["github", null],
+      default: null,
     },
   },
   {
@@ -41,4 +47,14 @@ const schema = new Schema(
   }
 );
 
-export const UserModel = model("Users", schema);
+userSchema.pre("findOne", function (next) {
+  this.populate({
+    path: "cart",
+    populate: {
+      path: "products.product",
+    },
+  });
+  next();
+});
+
+export const UserModel = mongoose.model("Users", userSchema);

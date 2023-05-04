@@ -8,6 +8,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+console.log("init 🛑");
+
 /* Instancias */
 
 const authServiceInstance = new AuthService();
@@ -15,6 +17,8 @@ const authService = authServiceInstance;
 
 const userServiceInstance = new UserService();
 const userService = userServiceInstance;
+
+console.log("instancias OK 🛑");
 
 // passport.serializeUser((user, done) => {
 //   done(null, user._id);
@@ -35,6 +39,8 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+console.log("serialize OK 🛑");
+
 passport.use(
   "signup",
   new Strategy(
@@ -45,6 +51,7 @@ passport.use(
         if (userExists) {
           return done("El usuario ya existe", false);
         } else {
+          console.log(req.body, "REQ BODY");
           const user = await userService.createUser(req.body);
           return done(null, user);
         }
@@ -84,9 +91,12 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async function (req, username, password, done) {
       try {
+        console.log(username, password, "🛑🛑🛑");
         const login = await authService.login(username, password);
+        console.log(login, "🛑🛑🛑");
         if (login) {
           const user = await UserModel.findOne({ email: username });
+          console.log(user, "USER 99");
           return done(null, user);
         } else {
           return done(null, false);

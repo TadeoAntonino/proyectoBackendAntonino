@@ -11,8 +11,11 @@ const cartsService = cartsServiceInstance.addCart();
 class UserService {
   async createUser(data) {
     try {
-      const userExists = await getUser(data.email);
-      if (userExists) {
+      const userExists = await this.getUser(data.email);
+      const parsedData = data;
+
+      console.log(userExists);
+      if (userExists.length) {
         throw new CustomError(
           "invalid data",
           "información no válida",
@@ -20,12 +23,18 @@ class UserService {
           1
         );
       } else {
-        data.password = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10));
+        console.log("DATA PARSEADA antes de hash", parsedData);
+
+        parsedData.password = bcrypt.hashSync(
+          data.password,
+          bcrypt.genSaltSync(10)
+        );
+
+        console.log("DATA PARSEADA", parsedData);
 
         const newUserCart = await cartsService;
-
         const newUser = await UserModel.create({
-          ...data,
+          ...parsedData,
           cart: newUserCart._id,
         });
 
@@ -45,8 +54,11 @@ class UserService {
   async getUser(email) {
     try {
       const user = await UserModel.find({ email }).lean();
+      console.log("BOLUDEZ", user);
+
       return user;
     } catch (error) {
+      console.log(error);
       throw new CustomError(
         "not found",
         "no se encontró al usuario",
