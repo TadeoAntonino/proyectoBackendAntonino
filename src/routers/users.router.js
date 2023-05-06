@@ -1,6 +1,7 @@
 import { Router } from "express";
 import userController from "../controllers/users.controller.js";
 import auth from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/multer.middleware.js";
 
 class UserRouter {
   constructor() {
@@ -18,7 +19,8 @@ class UserRouter {
       userController.updatePassword
     );
     this.expressRouter.get("/current", auth, userController.getUser); //No entendí bien si es así lo que pide la /current , lo entendí como que te traiga el usuario
-    this.expressRouter.get("/premium/:uid", auth, userController.changeRole);
+    this.expressRouter.get("/premium/:uid", auth, userController.changeRole); // Mover la ruta suelta /api/users/premium/:uid a un router específico para usuarios en /api/users/
+    this.expressRouter.post("/:uid/documents", upload);
   }
 
   getRouter() {

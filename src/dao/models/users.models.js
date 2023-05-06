@@ -41,6 +41,25 @@ const userSchema = new mongoose.Schema(
       enum: ["github", null],
       default: null,
     },
+    documents: [
+      {
+        name: {
+          type: String,
+          enum: [
+            { document1: "identificación", default: false },
+            { document2: "comprobante de dirección", default: false },
+            { document3: "comprobante de estado de cuenta", default: false },
+          ],
+        },
+        reference: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    lastConnection: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
