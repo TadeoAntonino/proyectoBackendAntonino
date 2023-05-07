@@ -54,7 +54,7 @@ class UserService {
   async getUser(email) {
     try {
       const user = await UserModel.find({ email }).lean();
-      console.log("BOLUDEZ", user);
+      console.log("llegué acá", user);
 
       return user;
     } catch (error) {
@@ -131,6 +131,8 @@ class UserService {
       // throw new Error(error.message);
     }
   }
+
+  async addDocs() {}
 }
 
 export default UserService;

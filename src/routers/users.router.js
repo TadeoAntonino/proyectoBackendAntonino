@@ -20,7 +20,11 @@ class UserRouter {
     );
     this.expressRouter.get("/current", auth, userController.getUser); //No entendí bien si es así lo que pide la /current , lo entendí como que te traiga el usuario
     this.expressRouter.get("/premium/:uid", auth, userController.changeRole); // Mover la ruta suelta /api/users/premium/:uid a un router específico para usuarios en /api/users/
-    this.expressRouter.post("/:uid/documents", upload);
+    this.expressRouter.post(
+      "/:uid/documents",
+      upload,
+      userController.uploadDocs
+    );
   }
 
   getRouter() {

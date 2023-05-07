@@ -99,6 +99,8 @@ class UserController {
     return user;
   }
 
+  async uploadDocs() {}
+
   static getInstance() {
     if (this.#instance) {
       return this.#instance;
