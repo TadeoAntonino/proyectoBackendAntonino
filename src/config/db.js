@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import config from "./config.js";
-import logger from "../utils/logger.js";
 
 mongoose.set("strictQuery", false);
 mongoose.connect(config.MONGO_URI, (err) => {

@@ -1,8 +1,7 @@
 import ProductService from "../services/products.service.js";
 import CartsService from "../services/carts.service.js";
 import UserService from "../services/users.service.js";
-import logger from "../utils/logger.js";
-//import auth from "../middlewares/auth.middleware.js";
+// import auth from "../middlewares/auth.middleware.js";
 
 /* Instancias */
 

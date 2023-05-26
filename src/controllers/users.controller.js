@@ -1,5 +1,4 @@
 import UserService from "../services/users.service.js";
-import CustomError from "../utils/customError.js";
 
 class UserController {
   static #instance;
@@ -10,13 +9,7 @@ class UserController {
       const response = await UserService.createUser(data);
       res.status(201).json({ user: response });
     } catch (error) {
-      throw new CustomError(
-        "invalid data",
-        "información no válida",
-        "el usuario ya existe",
-        1
-      );
-      // res.status(400).send(error.message);
+      res.status(400).send(error.message);
     }
   }
 
@@ -30,26 +23,16 @@ class UserController {
         res.json({ user });
       }
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró al usuario",
-        "el usuario no se ha encontrado",
-        3
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
   async getUsers(req, res) {
     try {
-      const users = await UserService.getUsers();
+      const users = await UserService.getUsers({});
+      return users;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró al usuario",
-        "el usuario no se ha encontrado",
-        3
-      );
+      throw new Error(error.message);
     }
   }
 
@@ -60,13 +43,7 @@ class UserController {
       const user = await UserService.updateUser(email, body);
       res.json(user);
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el usuario",
-        "el usuario no fue encontrado",
-        3
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -81,13 +58,7 @@ class UserController {
       );
       res.json(user);
     } catch (error) {
-      throw new CustomError(
-        "invalid data",
-        "no se proporcionó una contraseña válida",
-        "elija otra contraseña",
-        4
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -111,7 +82,12 @@ class UserController {
     return user;
   }
 
-  async uploadDocs() {}
+  async uploadDocs() {
+    try {
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 
   static getInstance() {
     if (this.#instance) {

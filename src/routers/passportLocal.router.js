@@ -1,6 +1,5 @@
 import { Router } from "express";
 import passport from "../utils/passport.util.js";
-import logger from "../utils/logger.js";
 
 class PassportLocalRouter {
   constructor() {

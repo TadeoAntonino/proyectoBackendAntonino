@@ -6,7 +6,6 @@ import UserRouter from "./routers/users.router.js";
 import AuthRouter from "./routers/auth.router.js";
 import GithubRouter from "./routers/github.router.js";
 import PassportLocalRouter from "./routers/passportLocal.router.js";
-import LoggerTest from "./routers/loggerTest.router.js";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import config from "./config/config.js";
@@ -15,8 +14,6 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "./utils/passport.util.js";
 import cookieParser from "cookie-parser";
-import errorHandler from "./middlewares/errorHandler.middleware.js";
-import logger from "./utils/logger.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import SwaggerUiExpress from "swagger-ui-express";
 
@@ -44,9 +41,6 @@ const githubRouter = githubRouterInstance.getRouter();
 
 const passportLocalRouterInstance = new PassportLocalRouter();
 const passportLocalRouter = passportLocalRouterInstance.getRouter();
-
-const loggerTestInstance = new LoggerTest();
-const loggerTest = loggerTestInstance.getRouter();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -80,7 +74,6 @@ app.use("/api/carts", cartsRouter);
 
 app.use("/", viewsRouter);
 app.use("/api/sessions", userRouter);
-app.use("/api/loggerTesting", loggerTest);
 
 app.use(function (err, req, res, next) {
   logger.error(err);
@@ -89,8 +82,6 @@ app.use(function (err, req, res, next) {
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "src/views");
-
-app.use(errorHandler);
 
 const swaggerOptions = {
   definition: {

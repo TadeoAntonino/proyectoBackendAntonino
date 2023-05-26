@@ -1,5 +1,4 @@
 import CartsModel from "../dao/models/carts.models.js";
-// import { ProductModel } from "../dao/models/products.models.js";
 
 export default class CartsService {
   async getCart() {
