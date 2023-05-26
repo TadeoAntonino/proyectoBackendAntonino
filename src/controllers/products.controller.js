@@ -1,6 +1,5 @@
 import ProductService from "../services/products.service.js";
 import CustomError from "../utils/customError.js";
-//import factory from "../services/factory.js";
 
 /* Instancia */
 

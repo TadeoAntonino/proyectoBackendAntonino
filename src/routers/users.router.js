@@ -6,6 +6,7 @@ import upload from "../middlewares/multer.middleware.js";
 class UserRouter {
   constructor() {
     this.expressRouter = Router();
+    this.expressRouter.get("/getUsers", userController.getUsers);
     this.expressRouter.post("/", userController.createUser);
     this.expressRouter.get("/:email", auth, userController.getUser);
     this.expressRouter.put(

@@ -1,7 +1,7 @@
 import { CartsModel } from "../dao/models/carts.models.js";
 import CustomError from "../utils/customError.js";
 
-class CartsService {
+export default class CartsService {
   async getCart() {
     try {
       const carts = await CartsModel.find({
@@ -39,13 +39,7 @@ class CartsService {
       const cart = await CartsModel.create(data);
       return cart;
     } catch (error) {
-      throw new CustomError(
-        "invalid data",
-        "no se proporcionó la información correcta",
-        "la información debe ser la correcta",
-        4
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -135,5 +129,3 @@ class CartsService {
     }
   }
 }
-
-export default CartsService;

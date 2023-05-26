@@ -5,7 +5,6 @@ import ViewsRouter from "./routers/views.router.js";
 import UserRouter from "./routers/users.router.js";
 import AuthRouter from "./routers/auth.router.js";
 import GithubRouter from "./routers/github.router.js";
-import MockingRouter from "./routers/mocking.router.js";
 import PassportLocalRouter from "./routers/passportLocal.router.js";
 import LoggerTest from "./routers/loggerTest.router.js";
 import { engine } from "express-handlebars";
@@ -23,7 +22,7 @@ import SwaggerUiExpress from "swagger-ui-express";
 
 const app = express();
 
-/* Instancias */
+/* Instancias (hago de esta forma porque sino me da error) */
 
 const authRouterInstance = new AuthRouter();
 const authRouter = authRouterInstance.getRouter();
@@ -42,9 +41,6 @@ const userRouter = userRouterInstance.getRouter();
 
 const githubRouterInstance = new GithubRouter();
 const githubRouter = githubRouterInstance.getRouter();
-
-const mockingRouterInstance = new MockingRouter();
-const mockingRouter = mockingRouterInstance.getRouter();
 
 const passportLocalRouterInstance = new PassportLocalRouter();
 const passportLocalRouter = passportLocalRouterInstance.getRouter();
@@ -84,7 +80,6 @@ app.use("/api/carts", cartsRouter);
 
 app.use("/", viewsRouter);
 app.use("/api/sessions", userRouter);
-app.use("/api/mock", mockingRouter);
 app.use("/api/loggerTesting", loggerTest);
 
 app.use(function (err, req, res, next) {

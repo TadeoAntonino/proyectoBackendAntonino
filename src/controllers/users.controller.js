@@ -1,5 +1,4 @@
-//  import userService from "../services/users.service.js";
-import factory from "../services/factory.js";
+import UserService from "../services/users.service.js";
 import CustomError from "../utils/customError.js";
 
 class UserController {
@@ -8,7 +7,7 @@ class UserController {
   async createUser(req, res) {
     try {
       const data = req.body;
-      const response = await factory.user.createUser(data);
+      const response = await UserService.createUser(data);
       res.status(201).json({ user: response });
     } catch (error) {
       throw new CustomError(
@@ -25,7 +24,7 @@ class UserController {
     try {
       const { email } = req.params;
       req.session.user = email;
-      const user = await factory.user.getUser(email);
+      const user = await UserService.getUser(email);
       if (user) {
         delete user.password;
         res.json({ user });
@@ -41,11 +40,24 @@ class UserController {
     }
   }
 
+  async getUsers(req, res) {
+    try {
+      const users = await UserService.getUsers();
+    } catch (error) {
+      throw new CustomError(
+        "not found",
+        "no se encontró al usuario",
+        "el usuario no se ha encontrado",
+        3
+      );
+    }
+  }
+
   async updateUser(req, res) {
     try {
       const { email } = req.params;
       const { body } = req;
-      const user = await factory.user.updateUser(email, body);
+      const user = await UserService.updateUser(email, body);
       res.json(user);
     } catch (error) {
       throw new CustomError(
@@ -62,7 +74,7 @@ class UserController {
     try {
       const { email } = req.params;
       const { body } = req;
-      const user = await factory.user.updateUser(
+      const user = await UserService.updateUser(
         email,
         { password: body.password },
         true
@@ -80,7 +92,7 @@ class UserController {
   }
 
   async changeRole(uid) {
-    const user = await factory.user.getUserById(uid);
+    const user = await UserService.getUserById(uid);
 
     if (!user) {
       throw new Error(`Usuario no encontrado con id: ${uid}`);
@@ -94,7 +106,7 @@ class UserController {
 
     user.role = newRole;
 
-    await factory.user.updateUser(email, role);
+    await UserService.updateUser(email, role);
 
     return user;
   }

@@ -69,6 +69,19 @@ class UserService {
     }
   }
 
+  async getUsers() {
+    try {
+      const data = await UserModel.find();
+    } catch (error) {
+      throw new CustomError(
+        "not found",
+        "no se encontró el usuario",
+        "el usuario no fue encontrado",
+        3
+      );
+    }
+  }
+
   async updateUser(email, data, updatePass = false) {
     try {
       const user = await getUser(email);

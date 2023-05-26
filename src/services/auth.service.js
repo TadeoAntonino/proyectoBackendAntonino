@@ -13,12 +13,10 @@ class AuthService {
       if (!user?.length) {
         return false;
       } else {
-        console.log(email, password, "EMAIL Y PASSWORD");
         const comparaPasswords = bcrypt.compareSync(
           password,
           user[0]?.password
         );
-        console.log(comparaPasswords, "COMPARA PASSWORD");
         if (comparaPasswords) {
           return true;
         } else {

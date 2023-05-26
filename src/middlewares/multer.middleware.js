@@ -1,5 +1,4 @@
 import multer from "multer";
-import { error } from "winston";
 
 const identificacionStorage = multer.diskStorage({
   destination: function (req, file, cb) {
