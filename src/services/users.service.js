@@ -13,7 +13,6 @@ class UserService {
       const userExists = await this.getUser(data.email);
       const parsedData = data;
 
-      console.log(userExists);
       if (userExists.length) {
         throw new Error(error.message);
       } else {

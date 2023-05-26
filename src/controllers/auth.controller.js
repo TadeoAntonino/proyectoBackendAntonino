@@ -8,7 +8,6 @@ const authService = authServiceInstance;
 class AuthController {
   async login(req, res) {
     try {
-      console.log(req.body, "ESTO ES EL REQ.BODY");
       const { email, password } = req.body;
       const logged = await authService.login(email, password);
       if (logged) {

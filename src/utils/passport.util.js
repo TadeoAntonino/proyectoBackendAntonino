@@ -8,8 +8,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log("init 🛑");
-
 /* Instancias */
 
 const authServiceInstance = new AuthService();
@@ -18,19 +16,6 @@ const authService = authServiceInstance;
 const userServiceInstance = new UserService();
 const userService = userServiceInstance;
 
-console.log("instancias OK 🛑");
-
-// passport.serializeUser((user, done) => {
-//   done(null, user._id);
-// });
-
-// passport.deserializeUser(async (_id, done) => {
-//   const user = await UserService.getUserById(_id);
-//   if (!user) {
-//     return done(null, false);
-//   }
-// });
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -38,8 +23,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-
-console.log("serialize OK 🛑");
 
 passport.use(
   "signup",
@@ -51,7 +34,6 @@ passport.use(
         if (userExists) {
           return done("El usuario ya existe", false);
         } else {
-          console.log(req.body, "REQ BODY");
           const user = await userService.createUser(req.body);
           return done(null, user);
         }
@@ -63,40 +45,15 @@ passport.use(
   )
 );
 
-// passport.use(
-//   "login",
-//   new passportLocal.Strategy(
-//     { passReqToCallback: true, usernameField: "email" },
-//     async function (req, username, password, done) {
-//       try {
-//         const login = await AuthService.login(username, password);
-//         if (login) {
-//           const user = await UserModel.findOne({ email: username });
-//           delete user.password;
-//           return done(null, user);
-//         } else {
-//           return done(null, false);
-//         }
-//       } catch (error) {
-//         console.error(error);
-//         throw new Error(error.message);
-//       }
-//     }
-//   )
-// );
-
 passport.use(
   "login",
   new Strategy(
     { passReqToCallback: true, usernameField: "email" },
     async function (req, username, password, done) {
       try {
-        console.log(username, password, "🛑🛑🛑");
         const login = await authService.login(username, password);
-        console.log(login, "🛑🛑🛑");
         if (login) {
           const user = await UserModel.findOne({ email: username });
-          console.log(user, "USER 99");
           return done(null, user);
         } else {
           return done(null, false);
