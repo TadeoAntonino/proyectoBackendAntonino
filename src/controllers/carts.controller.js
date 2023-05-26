@@ -8,7 +8,7 @@ export default class CartsController {
   constructor() {
     this.cartsService = new CartsService();
   }
-  async getCart(req, res) {
+  getCart = async (req, res) => {
     try {
       const response = await this.cartsService.getCart();
       res.status(200).json({
@@ -18,9 +18,9 @@ export default class CartsController {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
 
-  async getCartById(req, res) {
+  getCartById = async (req, res) => {
     try {
       const { cid } = req.params;
       const response = await this.cartsService.getCartById(cid);
@@ -29,20 +29,14 @@ export default class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el carrito",
-        "el carrito no se ha encontrado",
-        3
-      );
-      // res.status(400).json({
-      //   error: error.message,
-      //   status: STATUS.FAIL,
-      // });
+      res.status(400).json({
+        error: error.message,
+        status: STATUS.FAIL,
+      });
     }
-  }
+  };
 
-  async addCart(req, res) {
+  addCart = async (req, res) => {
     try {
       const { body } = req;
       const response = await this.cartsService.addCart(body);
@@ -53,9 +47,9 @@ export default class CartsController {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
 
-  async updateCart(req, res) {
+  updateCart = async (req, res) => {
     try {
       const { cid } = req.params;
       const { products } = req.body;
@@ -65,20 +59,14 @@ export default class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el carrito",
-        "el carrito a actualizar no fue encontrado",
-        3
-      );
-      // res.status(400).json({
-      //   error: error.message,
-      //   status: STATUS.FAIL,
-      // });
+      res.status(400).json({
+        error: error.message,
+        status: STATUS.FAIL,
+      });
     }
-  }
+  };
 
-  async updateProductQ(req, res) {
+  updateProductQ = async (req, res) => {
     try {
       const { cid, pid } = req.params;
       const { quantity } = req.body;
@@ -92,20 +80,14 @@ export default class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      throw new CustomError(
-        "invalid data",
-        "no se proporciono una cantidad adecuada",
-        "la cantidad debe ser un entero positivo",
-        6
-      );
-      // res.status(400).json({
-      //   error: error.message,
-      //   status: STATUS.FAIL,
-      // });
+      res.status(400).json({
+        error: error.message,
+        status: STATUS.FAIL,
+      });
     }
-  }
+  };
 
-  async deleteAllProducts(req, res) {
+  deleteAllProducts = async (req, res) => {
     try {
       const { cid } = req.params;
       await this.cartsService.deleteAllProducts(cid);
@@ -114,20 +96,14 @@ export default class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontraron los productos",
-        "los productos no se han encontrado",
-        5
-      );
-      // res.status(400).json({
-      //   error: error.message,
-      //   status: STATUS.FAIL,
-      // });
+      res.status(400).json({
+        error: error.message,
+        status: STATUS.FAIL,
+      });
     }
-  }
+  };
 
-  async deleteOneProduct(req, res) {
+  deleteOneProduct = async (req, res) => {
     try {
       const { cid } = req.params;
       const { pid } = req.params;
@@ -137,20 +113,14 @@ export default class CartsController {
         status: STATUS.SUCCESS,
       });
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el producto",
-        "el producto que se desea eliminar no se ha encontrado",
-        5
-      );
-      // res.status(400).json({
-      //   error: error.message,
-      //   status: STATUS.FAIL,
-      // });
+      res.status(400).json({
+        error: error.message,
+        status: STATUS.FAIL,
+      });
     }
-  }
+  };
 
-  async addProductToCart(req, res) {
+  addProductToCart = async (req, res) => {
     try {
       const { cid, pid, quantity } = req.params;
       const cart = await this.cartsService.addProductToCart(
@@ -164,18 +134,11 @@ export default class CartsController {
           message: `Producto: ${pid} agregado al carrito: ${cart._id}`,
           cart: cart,
         });
-      } else {
-        throw new CustomError(
-          "incomplete data",
-          "no se proporcionó toda la información",
-          "debe proporcionarse más información",
-          6
-        );
       }
     } catch (error) {
       res.status(500).json({ Error: error.message });
     }
-  }
+  };
 
   static getInstance() {
     if (this.#instance) {

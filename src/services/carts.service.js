@@ -1,5 +1,5 @@
-import { CartsModel } from "../dao/models/carts.models.js";
-import CustomError from "../utils/customError.js";
+import CartsModel from "../dao/models/carts.models.js";
+// import { ProductModel } from "../dao/models/products.models.js";
 
 export default class CartsService {
   async getCart() {
@@ -9,13 +9,7 @@ export default class CartsService {
       }).populate("products");
       return carts;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontraron los carritos",
-        "los carritos no se han encontrado",
-        3
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -24,14 +18,12 @@ export default class CartsService {
       const cart = await CartsModel.findById(cid).populate("products");
       return cart;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el carrito",
-        "el carrito no se ha encontrado",
-        3
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
+  }
+
+  async addProductToCart(cid, pid, quantity) {
+    return true;
   }
 
   async addCart(data) {
@@ -43,26 +35,33 @@ export default class CartsService {
     }
   }
 
-  async updateCart(cid, data) {
+  updateCart = async (cid, data) => {
     try {
-      const updateCart = await CartsModel.findById(cid);
-      let productToPush = {
-        product: data.product,
-        quantity: data.quantity,
-      };
-      updateCart.products.push(productToPush);
-      updateCart.save();
-      return updateCart;
+      const carrito = await CartsModel.findById(cid);
+
+      if (!carrito) {
+        throw new Error("Carrito no encontrado");
+      }
+
+      data.forEach((producto) => {
+        const { id, cantidad } = producto;
+
+        const productoEnCarrito = carrito.productos.find((p) => p.id === id);
+
+        if (productoEnCarrito) {
+          productoEnCarrito.cantidad = cantidad;
+        } else {
+          carrito.productos.push({ id, cantidad });
+        }
+      });
+
+      await carrito.save();
+
+      return carrito;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el carrito",
-        "el carrito a actualizar no fue encontrado",
-        3
-      );
-      // throw new Error(error.message);
+      throw new Error("No se pudo actualizar el carrito de compras");
     }
-  }
+  };
 
   async updateProductQ(cid, pid, quantity) {
     try {
@@ -79,13 +78,7 @@ export default class CartsService {
       });
       return updateCart;
     } catch (error) {
-      throw new CustomError(
-        "invalid data",
-        "no se proporciono una cantidad adecuada",
-        "la cantidad debe ser un entero positivo",
-        6
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -96,13 +89,7 @@ export default class CartsService {
       updateCart.save();
       return updateCart;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontraron los productos",
-        "los productos no se han encontrado",
-        5
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -119,13 +106,7 @@ export default class CartsService {
       updateCart.save();
       return updateCart;
     } catch (error) {
-      throw new CustomError(
-        "not found",
-        "no se encontró el producto",
-        "el producto que se desea eliminar no se ha encontrado",
-        5
-      );
-      // throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 }

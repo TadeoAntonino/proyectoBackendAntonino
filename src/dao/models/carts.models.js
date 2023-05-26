@@ -1,20 +1,32 @@
-import mongoose, { Schema } from "mongoose";
-import MongooseDelete from "mongoose-delete";
+import mongoose from "mongoose";
 
-const schema = new mongoose.Schema(
+// Defines the cart item schema
+const cartItemSchema = new mongoose.Schema(
+  {
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "products",
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0,
+    },
+  },
+  {
+    _id: false,
+  }
+);
+
+// Defines the cart schema
+const cartSchema = new mongoose.Schema(
   {
     products: [
       {
-        product: {
-          type: Schema.Types.ObjectId,
-          ref: "products",
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          min: 0,
-          default: 0,
-        },
+        type: cartItemSchema,
+        required: true,
       },
     ],
   },
@@ -23,11 +35,11 @@ const schema = new mongoose.Schema(
   }
 );
 
-schema.pre("find", function (next) {
+// Populates cart items when a read operation is performed
+cartSchema.pre("findOne", function (next) {
   this.populate("products.product");
   next();
 });
 
-schema.plugin(MongooseDelete, { deletedAt: true });
-
-export const CartsModel = mongoose.model("carts", schema);
+const CartsModel = mongoose.model("carts", cartSchema);
+export default CartsModel;
