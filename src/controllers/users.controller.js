@@ -1,12 +1,15 @@
 import UserService from "../services/users.service.js";
 
+const UserServiceInstance = new UserService();
+const userService = UserServiceInstance;
+
 class UserController {
   static #instance;
 
   async createUser(req, res) {
     try {
       const data = req.body;
-      const response = await UserService.createUser(data);
+      const response = await userService.createUser(data);
       res.status(201).json({ user: response });
     } catch (error) {
       res.status(400).send(error.message);
@@ -17,7 +20,7 @@ class UserController {
     try {
       const { email } = req.params;
       req.session.user = email;
-      const user = await UserService.getUser(email);
+      const user = await userService.getUser(email);
       if (user) {
         delete user.password;
         res.json({ user });
@@ -29,7 +32,7 @@ class UserController {
 
   async getUsers(req, res) {
     try {
-      const users = await UserService.getUsers({});
+      const users = await userService.getUsers({});
       return users;
     } catch (error) {
       throw new Error(error.message);
@@ -40,7 +43,7 @@ class UserController {
     try {
       const { email } = req.params;
       const { body } = req;
-      const user = await UserService.updateUser(email, body);
+      const user = await userService.updateUser(email, body);
       res.json(user);
     } catch (error) {
       throw new Error(error.message);
@@ -51,7 +54,7 @@ class UserController {
     try {
       const { email } = req.params;
       const { body } = req;
-      const user = await UserService.updateUser(
+      const user = await userService.updateUser(
         email,
         { password: body.password },
         true
@@ -63,7 +66,7 @@ class UserController {
   }
 
   async changeRole(uid) {
-    const user = await UserService.getUserById(uid);
+    const user = await userService.getUserById(uid);
 
     if (!user) {
       throw new Error(`Usuario no encontrado con id: ${uid}`);
@@ -77,13 +80,14 @@ class UserController {
 
     user.role = newRole;
 
-    await UserService.updateUser(email, role);
+    await userService.updateUser(email, role);
 
     return user;
   }
 
   async uploadDocs() {
     try {
+      console.log("Documentos cargados");
     } catch (error) {
       throw new Error(error.message);
     }

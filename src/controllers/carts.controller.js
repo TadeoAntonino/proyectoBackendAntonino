@@ -8,9 +8,9 @@ export default class CartsController {
   constructor() {
     this.cartsService = new CartsService();
   }
-  getCart = async (req, res) => {
+  getCarts = async (req, res) => {
     try {
-      const response = await this.cartsService.getCart();
+      const response = await this.cartsService.getCarts();
       res.status(200).json({
         carts: response,
         status: STATUS.SUCCESS,
@@ -131,7 +131,7 @@ export default class CartsController {
       if (cart) {
         res.status(200).json({
           status: STATUS.SUCCESS,
-          message: `Producto: ${pid} agregado al carrito: ${cart._id}`,
+          message: `Producto: ${pid} agregado al carrito: ${cid} con cantidad: ${quantity}`,
           cart: cart,
         });
       }

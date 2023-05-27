@@ -106,7 +106,7 @@ class ViewsController {
       );
       res.status(200).render("profile", { user });
     } catch (error) {
-      logger.error(err);
+      throw new Error(err);
     }
   }
 

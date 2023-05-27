@@ -71,13 +71,8 @@ app.use("/api/passportLocal", passportLocalRouter);
 app.use("/api/github", githubRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
-
 app.use("/", viewsRouter);
 app.use("/api/sessions", userRouter);
-
-app.use(function (err, req, res, next) {
-  logger.error(err);
-});
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
@@ -100,7 +95,7 @@ app.use("/apidocs", SwaggerUiExpress.serve, SwaggerUiExpress.setup(spec));
 const server = app.listen(config.PORT, () =>
   console.log(`🚀 Server started on port http://localhost:${config.PORT}`)
 );
-server.on("error", (err) => logger.error(err));
+server.on("error", (err) => error(err));
 
 const io = new Server(server);
 

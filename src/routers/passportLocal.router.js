@@ -19,7 +19,7 @@ class PassportLocalRouter {
         try {
           res.redirect("/products");
         } catch (error) {
-          logger.error(err);
+          throw new Error(error.message);
         }
       }
     );

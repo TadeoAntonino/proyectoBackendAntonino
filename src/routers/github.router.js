@@ -15,7 +15,7 @@ class GithubRouter {
     );
 
     this.expressRouter.get("/fail", (req, res) => {
-      res.send("Fail");
+      res.send("Fail 😀 (funciona)");
     });
   }
 

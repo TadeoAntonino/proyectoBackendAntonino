@@ -11,7 +11,8 @@ class CartRouter {
       "/:cid/product/:pid/:quantity",
       cartController.addProductToCart
     );
-    this.expressRouter.get("/:cid", cartController.getCart);
+    this.expressRouter.get("/", cartController.getCarts);
+    this.expressRouter.get("/:cid", cartController.getCartById);
     this.expressRouter.put("/:cid/", cartController.updateCart);
     this.expressRouter.patch(
       "/:cid/product/:pid",

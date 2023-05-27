@@ -49,7 +49,7 @@ const upload = (req, res, next) => {
       uploadStatus(req, res, next);
       break;
     default:
-      return console.log("asdasd");
+      return console.log("No funciono 😪");
   }
 };
 

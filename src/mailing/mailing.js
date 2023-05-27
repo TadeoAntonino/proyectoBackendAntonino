@@ -1,5 +1,4 @@
 import { createTransport } from "nodemailer";
-import logger from "../utils/logger.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -24,7 +23,7 @@ async function sendEmail() {
   try {
     const res = await transportGmail.sendMail(mailOptions);
   } catch (error) {
-    logger.error(error);
+    error(error);
   }
 }
 

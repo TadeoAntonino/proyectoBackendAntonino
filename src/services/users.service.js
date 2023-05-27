@@ -33,8 +33,9 @@ class UserService {
     }
   }
 
-  async getUser(email) {
+  async getUser() {
     try {
+      const { email } = req.params;
       const user = await UserModel.find({ email }).lean();
       return user;
     } catch (error) {

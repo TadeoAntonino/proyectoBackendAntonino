@@ -1,7 +1,7 @@
 import CartsModel from "../dao/models/carts.models.js";
 
 export default class CartsService {
-  async getCart() {
+  async getCarts() {
     try {
       const carts = await CartsModel.find({
         deletedAt: { $exists: false },
